@@ -59,7 +59,7 @@ function demo(scene) {
     </div></section>`;
 }
 const closing = () => `
-<section class="slide closing-slide" aria-labelledby="slide-title"><p class="kicker">READ WITH INTENTION.</p><h2 id="slide-title">下一页网页，<br>换一种读法。</h2><p class="closing-copy">JevLens · 你的 Chrome 浏览器助手</p><div class="closing-links"><a class="primary-link" href="../downloads/JevLens-0.2.0-chrome.zip" download>下载插件 ZIP ↗</a><a href="../examples.html">探索 120 个场景 ↗</a><a href="../guide.html">使用文档 ↗</a></div><p class="closing-note">解压 → Chrome 开发者模式 → 加载已解压的扩展程序<br>Chrome Web Store · Coming soon</p><p class="closing-wordmark" aria-hidden="true">See. Find. Act.</p></section>`;
+<section class="slide closing-slide" aria-labelledby="slide-title"><div class="closing-message"><p class="kicker">READ WITH INTENTION.</p><h2 id="slide-title">下一页网页，<br>换一种读法。</h2><p class="closing-copy">JevLens · 你的 Chrome 浏览器助手</p><div class="closing-links"><a class="primary-link" href="../downloads/JevLens-0.2.0-chrome.zip" download>下载插件 ZIP ↗</a><a href="../examples.html">探索 120 个场景 ↗</a><a href="../guide.html">使用文档 ↗</a></div><p class="closing-note">解压 → Chrome 开发者模式 → 加载已解压的扩展程序<br>Chrome Web Store · Coming soon</p></div><figure class="closing-qr"><a class="qr-frame" href="https://qrfy.io/LRoZa2y-cC" target="_blank" rel="noopener noreferrer" aria-label="打开二维码链接"><span class="qr-image-window"><img src="./closing-qr.png" alt="扫码了解更多，开发者邱伟提供的二维码" width="1898" height="2468" /></span></a><figcaption>扫码了解更多<small>开发者：邱伟</small></figcaption></figure></section>`;
 
 const captions = {
   intro: [

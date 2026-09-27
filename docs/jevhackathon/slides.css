@@ -1415,3 +1415,127 @@ mark {
     animation: none !important;
   }
 }
+
+/* Display the supplied QR unchanged; frame only its white square. */
+.closing-slide {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 28%);
+  align-items: center;
+  gap: 5%;
+}
+.closing-message {
+  min-width: 0;
+}
+.closing-qr {
+  margin: 0;
+  width: 100%;
+  max-width: 360px;
+  justify-self: center;
+}
+.qr-frame {
+  display: block;
+  padding: 18px;
+  background: white;
+  border-radius: 12px;
+}
+.qr-image-window {
+  display: block;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+}
+.qr-image-window img {
+  position: absolute;
+  width: 185.3515625%;
+  height: auto;
+  max-width: none;
+  left: -42.67578125%;
+  top: -68.84765625%;
+}
+.closing-qr figcaption {
+  text-align: center;
+  margin-top: 18px;
+  color: var(--lime);
+  font-size: 19px;
+}
+.closing-qr small {
+  display: block;
+  color: var(--muted);
+  margin-top: 9px;
+  font-size: 13px;
+}
+@media (max-width: 1050px) and (min-width: 761px) {
+  .closing-links {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+}
+@media (max-width: 760px) {
+  .closing-slide {
+    grid-template-columns: minmax(0, 1fr) 140px;
+    gap: 8px 20px;
+    align-content: center;
+  }
+  .closing-message {
+    display: contents;
+  }
+  .closing-message .kicker {
+    display: none;
+  }
+  .closing-message h2 {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    font-size: 38px;
+    margin: 0 0 12px;
+  }
+  .closing-copy {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 13px;
+    margin: 0 0 12px;
+  }
+  .closing-qr {
+    grid-column: 1;
+    grid-row: 3;
+    align-self: start;
+  }
+  .qr-frame {
+    padding: 10px;
+    border-radius: 7px;
+  }
+  .closing-qr figcaption {
+    font-size: 13px;
+    margin-top: 10px;
+  }
+  .closing-qr small {
+    font-size: 10px;
+    margin-top: 5px;
+  }
+  .closing-links {
+    grid-column: 2;
+    grid-row: 3;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    margin: 0;
+    font-size: 11px;
+  }
+  .primary-link {
+    padding: 12px 10px;
+  }
+  .closing-note {
+    grid-column: 1 / -1;
+    grid-row: 4;
+    font-size: 9px;
+    margin: 10px 0 0;
+  }
+}
+@media (max-width: 760px) and (max-height: 720px) {
+  .closing-message h2 {
+    font-size: 32px;
+  }
+  .closing-copy {
+    font-size: 11px;
+  }
+}
