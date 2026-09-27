@@ -23,6 +23,7 @@ const intro = () => `
   <div class="intro-text"><p class="kicker">YOUR BROWSER. YOUR ATTENTION.</p>
   <h1 id="slide-title">Jev<span>Lens</span><i>把注意力，<br>放回重要的地方。</i></h1>
   <p class="definition">一个 Chrome 浏览器助手插件。<br>在网页与 PDF 里看重点、找原文、编排动作。</p>
+  <p class="developer-credit">开发者：<strong>邱伟</strong></p>
   <p class="intro-foot">POWERED BY JEV <span>约 3 分钟 · 5 类场景</span></p></div>
   <div class="intro-type" aria-hidden="true"><span>See<span>看见重点</span></span><span>Find<span>找到原文</span></span><span>Act<span>动作编排</span></span><p>让阅读与行动，留在当前页面。</p></div>
 </section>`;

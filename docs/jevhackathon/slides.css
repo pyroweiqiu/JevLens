@@ -165,6 +165,15 @@ mark {
   color: #c2becc;
   margin-bottom: 28px;
 }
+.developer-credit {
+  font-size: clamp(14px, 1.4vw, 20px);
+  color: var(--paper);
+  margin: 0 0 18px;
+}
+.developer-credit strong {
+  color: var(--lime);
+  font-weight: 650;
+}
 .intro-foot {
   font-size: 10px;
   letter-spacing: 1px;
