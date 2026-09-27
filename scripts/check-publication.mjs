@@ -37,6 +37,20 @@ for (const entry of entries) {
     const data = git('cat-file', 'blob', object);
     const text = data.toString();
     if (data.length > 2 * 1024 * 1024) reasons.push('unexpected large file');
+    if (path.endsWith('.zip')) {
+      if (!/^docs\/downloads\/JevLens-[\d.]+-chrome\.zip$/.test(path)) {
+        reasons.push('unexpected archive');
+      } else {
+        try {
+          execFileSync('python3', ['scripts/check-extension-zip.py', '--stdin'], {
+            input: data,
+            stdio: ['pipe', 'pipe', 'pipe'],
+          });
+        } catch {
+          reasons.push('extension archive audit failed; values withheld');
+        }
+      }
+    }
     if (
       secretPatterns.some((pattern) => pattern.test(text)) ||
       localKeys.some((key) => text.includes(key))

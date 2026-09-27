@@ -239,19 +239,19 @@
       <h2 id="install-title">把 JevLens 放进浏览器。</h2>
       <ol>
         <li>
-          <strong>获取源码并构建</strong>
-          <p>需要 Node.js 22.13+。在项目目录运行：</p>
-          <pre><code>npm install
-npm run build</code></pre>
-          <a href="https://github.com/pyroweiqiu/JevLens/archive/refs/heads/main.zip"
-            >下载源码 ZIP ↗</a
+          <strong>下载插件，解压即可</strong>
+          <p>已编译好，无需安装 Node.js 或运行命令。下载后先解压 ZIP。</p>
+          <a class="download-button" href="./downloads/JevLens-0.1.0-chrome.zip" download
+            >下载 JevLens v0.1.0 · Chrome ZIP ↓</a
           >
         </li>
         <li>
           <strong>加载 Chrome 扩展</strong>
           <p>
-            打开 <code>chrome://extensions</code>，开启开发者模式，选择“加载已解压的扩展程序”，加载
-            <code>output/chrome-mv3</code>。
+            在电脑上打开
+            <code>chrome://extensions</code
+            >，开启右上角“开发者模式”，点击“加载已解压的扩展程序”，选择解压后包含
+            <code>manifest.json</code> 的文件夹。保留这个文件夹，不要删除。
           </p>
         </li>
         <li>
@@ -262,6 +262,10 @@ npm run build</code></pre>
           </p>
         </li>
       </ol>
+      <p class="install-note">
+        目前为手动安装版，尚未上架 Chrome 插件商店。更新时请重新下载并加载新版。
+      </p>
+      <a href="./privacy.html" target="_blank" rel="noopener noreferrer">隐私说明 ↗</a>
       <a
         class="readme-link"
         href="https://github.com/pyroweiqiu/JevLens#readme"

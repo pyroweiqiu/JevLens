@@ -1,5 +1,6 @@
 import { chromium } from '@playwright/test';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 let available = false;
 for (let attempt = 0; attempt < 50; attempt++) {
   try {
@@ -62,6 +63,19 @@ try {
     await page.locator('#install').click();
     if (!(await page.getByRole('dialog').isVisible()))
       throw new Error('Install guide did not open');
+    if (width === 1440) {
+      const [download] = await Promise.all([
+        page.waitForEvent('download'),
+        page.getByRole('link', { name: /下载 JevLens/ }).click(),
+      ]);
+      const filename = download.suggestedFilename();
+      const expected = (await readFile(`docs/downloads/${filename}.sha256`, 'utf8')).split(' ')[0];
+      const actual = createHash('sha256')
+        .update(await readFile(await download.path()))
+        .digest('hex');
+      if (actual !== expected) throw new Error('Downloaded ZIP checksum mismatch');
+      console.log('PASS direct extension download and SHA-256 checksum');
+    }
     await page.keyboard.press('Escape');
     if (await page.getByRole('dialog').isVisible()) throw new Error('Install guide did not close');
     console.log(

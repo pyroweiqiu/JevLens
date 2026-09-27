@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>JevLens · 隐私说明</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <style>
+      body {
+        max-width: 760px;
+        margin: 48px auto;
+        padding: 0 24px;
+        font:
+          16px/1.85 system-ui,
+          sans-serif;
+        color: #262039;
+        background: #f7f5ff;
+      }
+      a {
+        color: #6939ee;
+      }
+      h1,
+      h2 {
+        line-height: 1.4;
+      }
+      h2 {
+        margin-top: 32px;
+        font-size: 21px;
+      }
+      .meta {
+        color: #716a84;
+        font-size: 14px;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="./">← 返回 JevLens</a>
+    <h1>JevLens 隐私说明</h1>
+    <p class="meta">适用版本：0.1.0 · 更新日期：2026-09-27 · 维护者：pyroweiqiu</p>
+    <p>
+      JevLens 是帮助用户阅读网页和 PDF 的 Chrome
+      浏览器助手插件，提供重点高亮、原文查找和确认后的导航操作。
+    </p>
+    <h2>默认在本地处理</h2>
+    <p>
+      默认 Demo 模式使用浏览器内的规则分析页面，不向 AI
+      服务发送页面内容。章节和页码导航在本地处理。插件读取已打开网页或用户打开的 PDF
+      中可提取的文本、标题、地址和可操作元素，用于这些阅读功能。
+    </p>
+    <h2>启用 AI 时发送什么</h2>
+    <p>
+      只有在你选择 Jev 官方、OpenRouter
+      或自定义接口，并保存页面发送许可后，插件才会向所选接口发送用于分析的页面文本片段、章节、页面标题、处理后的页面地址，以及你输入的查找意图。推荐操作的请求可包含目标、候选控件信息和近期操作记录。敏感页面和本地
+      PDF 需要额外允许。
+    </p>
+    <p>
+      API Key 以请求认证信息发送给你配置的服务；插件不会把不同服务的 Key 混用。“Test
+      connection”会发送固定测试样本和认证信息，不包含当前页面文本。远程请求可能产生服务商费用。
+    </p>
+    <p>
+      这些请求直接发到你配置的服务地址，本项目没有统一接收页面内容的后端。若配置自定义代理，该代理及其上游也会处理请求。服务商的数据保留和处理规则由其政策决定；使用前请阅读所选服务的隐私说明。插件不控制服务商已接收数据的删除。
+    </p>
+    <h2>本地保存与删除</h2>
+    <p>
+      API 地址、模型、Key 和偏好保存在当前浏览器的扩展本地存储中，不使用 Chrome
+      云同步；普通网页内容脚本无权访问该设置存储。它不是操作系统密码保险库。
+    </p>
+    <p>
+      评分缓存存于本地
+      IndexedDB，以内容哈希为索引，不保存原文。缓存七天后不再使用，但过期条目不保证即时物理删除。可在
+      Settings → Clear cache 清除；移除相应 API Key 并保存可清除该服务的
+      Key；卸载插件可移除扩展本地数据。
+    </p>
+    <h2>权限与操作</h2>
+    <p>
+      网页访问权限用于提取和高亮网页内容、读取目录、访问用户选择的 PDF 和 API
+      地址；标签页、侧栏和右键菜单权限用于将操作连接到当前页面和打开 PDF
+      查看器。插件只在用户确认后执行推荐的页面点击或章节跳转，不自动填写表单。
+    </p>
+    <h2>统计与网站</h2>
+    <p>
+      插件没有广告、第三方分析 SDK
+      或向维护者发送使用遥测的功能。开发统计显示在本地。展示网站的交互演示使用固定样本，不调用
+      AI，也不要求填写 Key。网站由 GitHub Pages 托管，网站请求由 GitHub 按其政策处理。
+    </p>
+    <h2>联系</h2>
+    <p>
+      可通过
+      <a href="https://github.com/pyroweiqiu/JevLens/issues">GitHub Issues</a> 联系维护者。Issues
+      是公开的，请勿提交 API Key、私人网页内容或其他敏感信息。
+    </p>
+  </body>
+</html>

@@ -652,10 +652,25 @@ dialog a {
 dialog .eyebrow {
   margin-bottom: 10px;
 }
+dialog .download-button {
+  display: inline-block;
+  padding: 10px 14px;
+  background: var(--purple);
+  color: #fff;
+  border-radius: 7px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.install-note {
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--muted);
+}
 .readme-link {
   display: block;
   border-top: 1px solid var(--line);
   padding-top: 16px;
+  margin-top: 16px;
 }
 .header-caption {
   background: var(--lime);

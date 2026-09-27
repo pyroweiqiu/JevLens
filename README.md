@@ -4,7 +4,17 @@
 
 浏览器里的 SEE → FIND → ACT。使用 Chrome 原生侧栏展示重要原文、按意图定位段落，并在用户批准后执行一个可见页面动作。
 
-## 启动
+## 直接安装（无需编译）
+
+1. [下载 JevLens v0.1.0 Chrome ZIP](https://pyroweiqiu.github.io/JevLens/downloads/JevLens-0.1.0-chrome.zip)，在电脑上解压。
+2. 打开 `chrome://extensions`，开启右上角“开发者模式”，点击“加载已解压的扩展程序”。
+3. 选择解压后包含 `manifest.json` 的文件夹，保留该文件夹；刷新网页，点击工具栏里的 JevLens。
+
+目前尚未上架 Chrome Web Store。手动安装版本不会通过商店自动更新，更新时重新下载并加载新版。默认 Demo 无需 Key；启用真实 AI 时，在 API settings 配置自己的服务和 Key。
+
+[隐私说明](https://pyroweiqiu.github.io/JevLens/privacy.html) · [Chrome Web Store 上架指南](CHROME_WEB_STORE.md)
+
+## 开发者启动
 
 要求 Node.js 22.13+（推荐 24 LTS） 和 Chrome/Chromium 116+（推荐最新版）。
 
@@ -22,7 +32,7 @@ npm run demo
 # 浏览器打开 http://127.0.0.1:4173
 ```
 
-开发热更新：`npm run dev`。可分发包：`npm run zip`。
+开发热更新：`npm run dev`。可分发包：`npm run zip`。维护者运行 `npm run package:download`（需要 Python 3）可构建、检查并更新网站下载包；升级版本时同步修改网站与 README 中的下载链接。
 
 ## 设置 API：Jev 官方 / OpenRouter / 自定义
 

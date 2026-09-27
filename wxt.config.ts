@@ -3,8 +3,9 @@ export default defineConfig({
   outDir: 'output',
   modules: ['@wxt-dev/module-react'],
   manifest: {
-    name: 'Jev Web Lens',
+    name: 'JevLens',
     description: 'See what matters. Find what you need. Act with intention.',
+    icons: { 16: 'icons/16.png', 32: 'icons/32.png', 48: 'icons/48.png', 128: 'icons/128.png' },
     permissions: ['sidePanel', 'storage', 'activeTab', 'tabs', 'contextMenus'],
     host_permissions: ['http://*/*', 'https://*/*'],
     action: { default_title: 'Open Jev Lens' },

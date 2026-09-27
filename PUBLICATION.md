@@ -7,6 +7,7 @@ The public project lives at `https://github.com/pyroweiqiu/JevLens`. Its one-scr
 - `src/`, `entrypoints/`, `server/`: extension and optional proxy source.
 - `tests/`, `scripts/`: synthetic fixtures, regression tooling, local preview and verification scripts. Live API checks read a local file; no key is bundled.
 - `docs/`: standalone HTML/CSS/JavaScript showcase and original SVG icon. It makes no AI requests, has no analytics and uses no external fonts or CDN scripts.
+- `public/icons/`: extension PNG icons. `docs/downloads/`: intentionally published production ZIP and SHA-256 checksum; archive contents are decompressed and audited before publication.
 - Dependency manifests/lockfile, build/test configuration, `.env.example` with empty credentials, README, implementation plan and status.
 
 ## Excluded
@@ -26,3 +27,5 @@ The project does **not** require a `pyroweiqiu.github.io` user-site repository o
 In `JevLens → Settings → Pages`, select **Deploy from a branch → main → /docs → Save**. GitHub then publishes the showcase whenever `docs/` changes on `main`. The `docs/.nojekyll` file keeps it a plain static site. There is no build-time secret or API key to configure.
 
 Local preview: `npm run site:preview`. With that server running, `npm run site:check` verifies six desktop/mobile viewports, no page overflow, demo interactions, keyboard navigation and the installation dialog.
+
+The downloadable ZIP is the only intentionally committed build artifact. Run `npm run package:download` to refresh it, then commit the ZIP, checksum and updated version links together. Python 3 is required for archive inspection. Never zip the project root or include a configured browser profile.
