@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f5ff" />
+    <title>JevLens · Docs · 使用指南</title>
+    <meta
+      name="description"
+      content="JevLens Chrome 插件使用指南：安装、See、Find、Act、PDF 导航、API 设置与常见问题。"
+    />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./library.css" />
+  </head>
+  <body class="library-page">
+    <div class="site-shell library-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="JevLens 首页"
+          ><img src="./icon.svg" width="33" height="33" alt="" /><span
+            >jev<span class="brand-light">lens</span></span
+          ></a
+        >
+        <nav class="site-nav" aria-label="主导航">
+          <a href="./">Overview</a><a href="./examples.html">Examples</a
+          ><a href="./guide.html" aria-current="page">Docs</a>
+        </nav>
+        <a
+          class="source-link"
+          href="https://github.com/pyroweiqiu/JevLens"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub ↗</a
+        >
+      </header>
+      <main class="guide-layout">
+        <nav class="guide-toc" aria-label="文档目录">
+          <p class="eyebrow">JEVLENS / HANDBOOK</p>
+          <h1>使用指南<span>。</span></h1>
+          <a href="#start">01　安装与打开</a><a href="#see">02　See · 看重点</a
+          ><a href="#find">03　Find · 找原文</a><a href="#act">04　Act · 去下一步</a
+          ><a href="#pdf">05　PDF 与目录</a><a href="#api">06　API 设置</a
+          ><a href="#troubleshooting">07　遇到问题</a><a href="#privacy">08　隐私与限制</a
+          ><a class="guide-examples" href="./examples.html">去看 120 个使用场景 ↗</a>
+        </nav>
+        <article class="guide-content" aria-label="使用文档">
+          <section id="start">
+            <p class="eyebrow">START HERE / 01</p>
+            <h2>一个在浏览器里陪你阅读的助手。</h2>
+            <p>
+              JevLens 是 Chrome 浏览器插件。See 帮你看重点，Find 帮你找原文，Act
+              帮你在确认后定位章节或执行一次页面点击。
+            </p>
+            <ol>
+              <li>
+                <a href="./downloads/JevLens-0.1.0-chrome.zip" download>下载 JevLens v0.1.0 ZIP</a>
+                并解压，无需编译。
+              </li>
+              <li>
+                在电脑打开
+                <code>chrome://extensions</code
+                >，开启“开发者模式”，选择“加载已解压的扩展程序”，加载包含
+                <code>manifest.json</code> 的文件夹，保留该文件夹。
+              </li>
+              <li>
+                刷新已打开的网页，在 Chrome 扩展菜单找到 JevLens，固定到工具栏并点击图标，打开侧栏。
+              </li>
+            </ol>
+            <div class="guide-callout">
+              第一次使用可以保留默认 Demo：无需 Key，不发送 AI
+              请求。它使用本地规则，适合先熟悉操作；中文提问匹配英文文章等语义能力需要可用的真实模型。
+            </div>
+            <p>
+              目前尚未上架 Chrome Web Store；手动安装版需要重新下载并加载新版来更新。Chrome
+              内部页面和商店等受限制页面无法使用内容提取。
+            </p>
+          </section>
+          <section id="see">
+            <p class="eyebrow">SEE / 02</p>
+            <h2>看见重点，仍然读原文。</h2>
+            <ol>
+              <li>打开一篇有正文的网页，点击侧栏 See。</li>
+              <li>用 Sentence / Paragraph 选择按句或按段分析。</li>
+              <li>调整 Density 控制显示多少重点；点击结果卡片，跳到对应原文。</li>
+            </ol>
+            <p>
+              <strong>预期：</strong>正文出现高亮，侧栏显示可追溯的原文片段。See
+              不是自动生成的全文摘要，Demo 的规则排序也不代表 Jev 的语义质量。
+            </p>
+            <a href="./examples.html#case-9">试一试：TypeSafe 的 Jev 介绍 →</a>
+          </section>
+          <section id="find">
+            <p class="eyebrow">FIND / 03</p>
+            <h2>带着问题，回到答案所在的位置。</h2>
+            <ol>
+              <li>选择 Find，输入原文中的关键词，点击“查找”。</li>
+              <li>点击匹配卡片或使用箭头，逐条查看上下文；Escape 清除查找意图。</li>
+              <li>启用真实 AI 后，可尝试自然语言问题，例如“这个方法有什么限制？”。</li>
+            </ol>
+            <div class="guide-callout cyan">
+              Demo 入门：在英文 Rust 所有权章节输入
+              <code>ownership</code>。中文提问“什么是所有权？”需要真实模型做跨语言语义判断。
+            </div>
+            <p>
+              <strong>预期：</strong
+              >找到原文片段并定位，不是给出聊天式回答。检索范围是当前已加载文档；不会跨网站搜索或自动展开隐藏内容。
+            </p>
+            <a href="./examples.html#case-24">试一试：Rust 所有权 →</a>
+          </section>
+          <section id="act">
+            <p class="eyebrow">ACT / 04</p>
+            <h2>先看目标，再确认下一步。</h2>
+            <p>
+              <strong>章节导航：</strong>在 Act
+              的“本页目录”选择一个已有标题，点击“推荐”，核对目标后点击
+              <strong>Approve &amp; go</strong>。也可以输入
+              <code>go to</code> 加目录中的准确标题。这种导航无需 API。
+            </p>
+            <p>
+              <strong>页面点击：</strong
+              >输入页面中已有的按钮或链接名称，点击“推荐”，查看绿色光环是否指向正确控件，再点
+              <strong>Approve &amp; click</strong>。Skip 换候选，Stop / Escape 取消。
+            </p>
+            <div class="guide-callout coral">
+              Act
+              只执行确认后的单次动作。支付、删除、发送、授权、表单提交、输入和下载等识别到的风险操作需要你手动完成；它不会自己连续操作或完成整套流程。
+            </div>
+            <p>
+              目录仅覆盖当前页已加载的标题及同页目录锚点；跨页目录链接属于页面点击。它不会自动跨页读取章节、展开菜单或加载无限滚动列表。
+            </p>
+          </section>
+          <section id="pdf">
+            <p class="eyebrow">PDF / 05</p>
+            <h2>论文再长，也能按页和章节走。</h2>
+            <ol>
+              <li>
+                通过侧栏 <strong>Open PDF</strong> 或页面右键
+                <strong>Open in Jev PDF Viewer</strong>，进入插件自己的 PDF 查看器。
+              </li>
+              <li>
+                等待 PDF 加载完成，在 Act 输入 <code>go to page 10</code>（文档需至少 10
+                页），点击推荐，再确认跳转。
+              </li>
+              <li>
+                输入
+                <code>go to Appendix</code>
+                或“跳到附录”；优先匹配目录书签，再尝试文字层短标题。无匹配时，使用本页目录的准确名称或改用
+                Find。
+              </li>
+            </ol>
+            <p>
+              <strong>注意：</strong>Chrome 内置 PDF 阅读器中的文字和工具栏不能按普通 HTML
+              处理，需要先进入 Jev PDF Viewer。扫描件没有文字层时不能搜索，当前没有
+              OCR。远程文件打不开时可自行下载，然后在查看器选择本地文件。
+            </p>
+            <p>本地 PDF 默认在本地处理；发送给 AI 需要额外允许。目录导航和页码跳转无需 API。</p>
+            <a href="./examples.html#case-4">试一试：Attention Is All You Need PDF →</a>
+          </section>
+          <section id="api">
+            <p class="eyebrow">API SETTINGS / 06</p>
+            <h2>选择自己的模型服务。</h2>
+            <p>
+              点击侧栏底部输入框上方的 <strong>API settings</strong>，选择 Jev Official、OpenRouter
+              或 Custom，填写自己的 Key 和模型。Test connection
+              使用固定样本检查连接；保存并允许发送页面内容后，真实 AI 分析才会启用。
+            </p>
+            <div class="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th>方式</th>
+                    <th>接口 / 默认模型</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Jev Official</td>
+                    <td><code>https://api.typesafe.ai/v1/systemone</code><br />jev-latest</td>
+                  </tr>
+                  <tr>
+                    <td>OpenRouter</td>
+                    <td>
+                      <code>https://openrouter.ai/api/alpha/decisions</code><br />typesafe/jev-1.13
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Custom</td>
+                    <td>
+                      完整 Jev / Decisions 兼容地址，需支持 Score 和 Choice；不支持任意 Chat
+                      Completions 接口。
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              各服务的地址、模型和 Key 独立保存。测试和真实分析可能产生服务商费用；插件不附带共享
+              Key 或免费额度。设置界面的默认值以你安装的版本为准。
+            </p>
+          </section>
+          <section id="troubleshooting">
+            <p class="eyebrow">TROUBLESHOOTING / 07</p>
+            <h2>没有结果时，从这里检查。</h2>
+            <details open>
+              <summary>“No useful action in this viewport.”</summary>
+              <p>
+                这是未找到合适动作，不表示页面没有你要的内容。找信息用 Find；跳章节用 Act
+                的本页目录。页面点击只检查已加载 DOM 的前 200
+                个非隐藏控件，目标可能未加载、被折叠或未匹配。手动展开内容，使用实际标题或按钮名称再试。
+              </p>
+            </details>
+            <details>
+              <summary>PDF 中有 Appendix，却找不到？</summary>
+              <p>
+                先确认已经进入 Jev PDF Viewer
+                并加载完成。目录可能使用其他标题；尝试本页目录里的准确名称、Find
+                原文关键词，或直接跳到已知页码。正文提到 appendix 不等于存在可导航的附录标题。
+              </p>
+            </details>
+            <details>
+              <summary>插件打不开、页面没有高亮？</summary>
+              <p>
+                安装或更新后刷新页面；确认是允许读取的普通网页。浏览器内部页、跨域
+                iframe、编辑器、画布及隐藏内容可能无法提取。复杂 PDF 的文字顺序也可能不准确。
+              </p>
+            </details>
+            <details>
+              <summary>Key 报错、401 / 402 / 429？</summary>
+              <p>
+                401 / 403 检查 Key 和权限；402 检查服务商余额；429
+                稍后重试。确认接口和模型填写正确，使用 Test connection；不要把 Key 发到公开 Issues
+                或截图中。
+              </p>
+            </details>
+            <details>
+              <summary>中文问题找不到英文原文？</summary>
+              <p>
+                默认 Demo
+                使用本地规则，不提供可靠的跨语言语义匹配。先用原文关键词验证操作，再配置可用的真实
+                AI 服务测试中文问题。
+              </p>
+            </details>
+          </section>
+          <section id="privacy">
+            <p class="eyebrow">YOUR READING, YOUR CHOICE / 08</p>
+            <h2>知道数据去了哪里。</h2>
+            <p>
+              Demo 不上传页面。真实 AI 按你保存的许可将必要文本和意图发送到选定服务，敏感页面与本地
+              PDF 需要额外允许。Key 保存在当前浏览器扩展本地存储中，不云同步。
+            </p>
+            <p>
+              插件不绕过登录或付费墙，不做投资、法律或医疗判断，不解析视频画面。案例库中的价格、新闻和列表可能变化，应以你打开时的原文为准。
+            </p>
+            <p>
+              <a href="./privacy.html">完整隐私说明 ↗</a> ·
+              <a
+                href="https://github.com/pyroweiqiu/JevLens/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                >反馈问题 ↗</a
+              >
+            </p>
+          </section>
+        </article>
+      </main>
+      <footer class="site-footer">
+        <span>Read with intention.</span
+        ><span
+          ><a href="./privacy.html">隐私说明</a> ·
+          <a href="./downloads/JevLens-0.1.0-chrome.zip" download>下载插件 ↓</a></span
+        >
+      </footer>
+    </div>
+  </body>
+</html>

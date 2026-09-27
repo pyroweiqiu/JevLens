@@ -168,7 +168,11 @@ npm run qa:live
 
 ## 项目展示页与公开发布
 
-`docs/` 是独立的一屏交互展示页，可切换 See / Find / Act、体验确认跳转，并查看安装指南。演示使用固定示例，不调用 AI。桌面和手机均按单屏布局适配，安装说明使用弹窗。
+`docs/` 网站包含 Overview / Examples / Docs 三个导航页。首页保留一屏 See / Find / Act 交互演示与安装指南；[Examples](https://pyroweiqiu.github.io/JevLens/examples.html) 收录原计划的 120 个场景（含重复 URL 的不同任务），支持分类、搜索、验证状态筛选、复制指令和分享单个案例；[Docs](https://pyroweiqiu.github.io/JevLens/guide.html) 提供安装、功能操作、PDF、API 与排错说明。桌面列表与详情分别滚动，手机点选案例后显示步骤。
+
+案例是建议体验流程，不等于全部实测通过。7 个历史案例只标注 2026-09-27 的本地提取/高亮检查，不声称自然语言问题与真实 AI 效果已验证。手动场景与通配符地址单独解释支持边界。网站不调用 AI，不加载案例中的外部页面，也不收集 Key。
+
+案例源清单为 `tests/fixtures/regression-matrix.json`，中文任务与指令在 `scripts/build-examples.mjs`；修改后运行 `npm run site:examples` 生成公开数据。不要把私有 QA 报告或真实账号内容复制到网站。
 
 本地运行 `npm run site:preview`，打开 `http://127.0.0.1:4174`；另一个终端运行 `npm run site:check` 检查布局与交互。
 

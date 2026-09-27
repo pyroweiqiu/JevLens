@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f7f5ff" />
+    <meta
+      name="description"
+      content="120 个 JevLens 使用场景：打开原网页，按步骤练习 See、Find、Act 和 PDF 导航。"
+    />
+    <title>JevLens · Examples · 120 个使用场景</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./library.css" />
+    <script type="module" src="./examples.js"></script>
+  </head>
+  <body class="library-page">
+    <div class="site-shell library-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="JevLens 首页"
+          ><img src="./icon.svg" width="33" height="33" alt="" /><span
+            >jev<span class="brand-light">lens</span></span
+          ></a
+        >
+        <nav class="site-nav" aria-label="主导航">
+          <a href="./">Overview</a><a href="./examples.html" aria-current="page">Examples</a
+          ><a href="./guide.html">Docs</a>
+        </nav>
+        <a
+          class="source-link"
+          href="https://github.com/pyroweiqiu/JevLens"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub ↗</a
+        >
+      </header>
+      <main class="library-main">
+        <div class="library-heading">
+          <div>
+            <p class="eyebrow">THE WEB IS YOUR READING ROOM</p>
+            <h1>找到你的下一种用法<span>。</span></h1>
+          </div>
+          <p>120 个场景 · 从论文到日常网页<br />选一个页面，跟着步骤试一遍。</p>
+        </div>
+        <div class="filters">
+          <label class="search-label"
+            ><span class="sr-only">搜索案例</span
+            ><input id="search" type="search" placeholder="搜索网站、主题、关键词…"
+          /></label>
+          <label
+            ><span class="sr-only" id="category-label">场景分类</span
+            ><select id="category" aria-labelledby="category-label">
+              <option value="all">全部分类</option>
+            </select></label
+          >
+          <label
+            ><span class="sr-only" id="status-label">验证状态</span
+            ><select id="status" aria-labelledby="status-label">
+              <option value="all">全部验证状态</option>
+              <option value="extraction">本地提取已测</option>
+              <option value="unverified">待实测</option>
+              <option value="manual">手动场景</option>
+            </select></label
+          >
+        </div>
+        <div class="library-workspace" id="workspace">
+          <section class="example-list-pane" aria-label="案例列表">
+            <div class="list-meta">
+              <span id="result-count" role="status" aria-live="polite"></span
+              ><span>CHOOSE A PAGE ↘</span>
+            </div>
+            <div id="example-list" class="example-list"></div>
+            <p id="empty-results" hidden>
+              没有匹配的案例。试试其他关键词，或重置筛选。<button id="reset-filters">
+                重置筛选
+              </button>
+            </p>
+          </section>
+          <article
+            id="example-detail"
+            class="example-detail"
+            aria-label="案例操作步骤"
+            tabindex="-1"
+          ></article>
+        </div>
+        <noscript
+          >请启用 JavaScript 浏览案例库。完整列表也见
+          <a
+            href="https://github.com/pyroweiqiu/JevLens/blob/main/tests/fixtures/regression-matrix.json"
+            >公开场景清单</a
+          >。</noscript
+        >
+      </main>
+      <footer class="site-footer">
+        <span>Explore. Find your flow.</span
+        ><span
+          ><a href="./privacy.html">隐私说明</a> ·
+          <a href="./downloads/JevLens-0.1.0-chrome.zip" download>下载插件 ↓</a></span
+        >
+      </footer>
+    </div>
+  </body>
+</html>

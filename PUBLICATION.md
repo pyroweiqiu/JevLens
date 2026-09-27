@@ -6,7 +6,7 @@ The public project lives at `https://github.com/pyroweiqiu/JevLens`. Its one-scr
 
 - `src/`, `entrypoints/`, `server/`: extension and optional proxy source.
 - `tests/`, `scripts/`: synthetic fixtures, regression tooling, local preview and verification scripts. Live API checks read a local file; no key is bundled.
-- `docs/`: standalone HTML/CSS/JavaScript showcase and original SVG icon. It makes no AI requests, has no analytics and uses no external fonts or CDN scripts.
+- `docs/`: standalone HTML/CSS/JavaScript showcase, searchable scenario library, usage guide and original SVG icon. It makes no AI requests, has no analytics and uses no external fonts or CDN scripts. Scenario recipes come from the public regression matrix; private QA reports are not included. Historical local extraction checks are distinguished from unverified AI behavior.
 - `public/icons/`: extension PNG icons. `docs/downloads/`: intentionally published production ZIP and SHA-256 checksum; archive contents are decompressed and audited before publication.
 - Dependency manifests/lockfile, build/test configuration, `.env.example` with empty credentials, README, implementation plan and status.
 

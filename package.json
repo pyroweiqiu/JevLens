@@ -20,6 +20,7 @@
     "format": "prettier --write docs entrypoints src server scripts tests *.ts *.json README.md",
     "lint": "prettier --check docs entrypoints src server scripts tests *.ts *.json README.md",
     "site:preview": "node scripts/site-preview.mjs",
+    "site:examples": "node scripts/build-examples.mjs && prettier --write docs/examples-data.js",
     "site:check": "node scripts/site-check.mjs",
     "audit:public": "node scripts/check-publication.mjs"
   },
