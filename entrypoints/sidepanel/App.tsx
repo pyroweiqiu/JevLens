@@ -3,7 +3,6 @@ import {
   ArrowDown,
   ArrowUp,
   ArrowUpRight,
-  Check,
   ChevronRight,
   Crosshair,
   FileText,
@@ -13,7 +12,6 @@ import {
   Search,
   Settings2,
   Sparkles,
-  Square,
   X,
 } from 'lucide-react';
 import {
@@ -22,16 +20,14 @@ import {
   type ExtractedDocument,
   type ScoredUnit,
   type Metric,
-  type ActionCandidate,
-  type CursorDecision,
 } from '../../src/shared/types';
 import { pageRequest } from '../../src/messaging/transport';
 import { eventSchema } from '../../src/messaging/protocol';
 import { analyze, selectHighlights } from '../../src/jev/pipeline';
-import { JevDecisionProvider, MockDecisionProvider } from '../../src/jev/client';
 import { clearCache } from '../../src/cache/indexedDb';
 import { loadSettings, PROVIDER_LABELS } from '../../src/shared/settings';
 import ApiSettings from './components/ApiSettings';
+import ActionComposer, { type ComposerHandle } from './components/ActionComposer';
 export default function App() {
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [loaded, setLoaded] = useState(false);
@@ -53,50 +49,19 @@ export default function App() {
   const [metrics, setMetrics] = useState<Metric[]>([]);
   const [cursor, setCursor] = useState(false);
   const [findMode, setFindMode] = useState(false);
-  const [actionExamples, setActionExamples] = useState<ActionCandidate[]>([]);
-  const [actionMessage, setActionMessage] = useState('');
-  const [actionDone, setActionDone] = useState('');
   const isPdf =
     !!doc?.units.some((u) => u.locator.kind === 'pdf-text') ||
     /\/pdf(?:\/|-viewer\.html)|\.pdf(?:[?#]|$)/i.test(tab?.url || '');
   const findExamples = [
     ...new Set(doc?.units.flatMap((u) => u.headingPath).filter(Boolean) || []),
   ].slice(0, 3);
-  useEffect(() => {
-    setActionExamples([]);
-    if (!cursor || isPdf || tab?.id === undefined) return;
-    let stale = false;
-    void pageRequest<ActionCandidate[]>(tab.id, { type: 'ACTIONS' })
-      .then((items) => {
-        if (!stale)
-          setActionExamples([
-            ...items.filter(
-              (item, index) =>
-                item.role === 'html-section' &&
-                items.findIndex((other) => other.fingerprint === item.fingerprint) === index,
-            ),
-            ...items
-              .filter((item) => item.role !== 'html-section' && !item.riskHints.length)
-              .slice(0, 3),
-          ]);
-      })
-      .catch(() => {});
-    return () => {
-      stale = true;
-    };
-  }, [cursor, isPdf, tab?.id, doc?.documentId]);
-  const [decision, setDecision] = useState<CursorDecision>();
-  const [candidate, setCandidate] = useState<ActionCandidate>();
   const [cursorBusy, setCursorBusy] = useState(false);
   const [sensitiveAllowed, setSensitiveAllowed] = useState(false);
   const consentRef = useRef(false);
-  const history = useRef<string[]>([]);
-  const skipped = useRef(new Set<string>());
   const settingsRef = useRef(settings);
   const abort = useRef<AbortController | undefined>(undefined);
   const requestId = useRef(0);
-  const cursorVersion = useRef(0);
-  const cursorAbort = useRef<AbortController | undefined>(undefined);
+  const composer = useRef<ComposerHandle>(null);
   const input = useRef<HTMLInputElement>(null);
   const manualScroll = useRef(0);
   const activeCard = useRef<HTMLButtonElement>(null);
@@ -117,12 +82,9 @@ export default function App() {
     setSettings(next);
   }
   function stopCursor(leaveMode = true) {
-    cursorVersion.current++;
-    cursorAbort.current?.abort();
+    composer.current?.stop();
     if (leaveMode) setCursor(false);
     setCursorBusy(false);
-    setDecision(undefined);
-    setCandidate(undefined);
     if (tabRef.current?.id !== undefined)
       void pageRequest(tabRef.current.id, { type: 'STOP' }).catch(() => {});
   }
@@ -162,7 +124,7 @@ export default function App() {
     abort.current?.abort();
     const controller = new AbortController();
     abort.current = controller;
-    stopCursor();
+    stopCursor(false);
     setError('');
     setStatus('extracting');
     try {
@@ -212,13 +174,11 @@ export default function App() {
       tabRef.current = current;
       setTab(current);
       if (changed) {
-        if (switchedTab) history.current = [];
-        skipped.current.clear();
         consentRef.current = false;
         setSensitiveAllowed(false);
         setIntent('');
         intentRef.current = '';
-        if (switchedTab || !history.current.length) setDraft('');
+        if (switchedTab) setDraft('');
         setDoc(undefined);
         docRef.current = undefined;
         setScores([]);
@@ -308,7 +268,7 @@ export default function App() {
       disposed = true;
       clearTimeout(timer);
       abort.current?.abort();
-      cursorAbort.current?.abort();
+      composer.current?.stop();
       clearTimeout(reconnect);
       port.disconnect();
       chrome.tabs.onActivated.removeListener(activated);
@@ -379,99 +339,8 @@ export default function App() {
       void run(docRef.current, '', requestId.current, controller.signal);
     }
   }
-  async function propose() {
-    if (!draft.trim() || tabRef.current?.id === undefined) return;
-    const tabId = tabRef.current.id;
-    const version = ++cursorVersion.current;
-    cursorAbort.current?.abort();
-    const controller = new AbortController();
-    cursorAbort.current = controller;
-    setCursor(true);
-    setCursorBusy(true);
-    setActionDone('');
-    setActionMessage('');
-    setDecision(undefined);
-    setCandidate(undefined);
-    setError('');
-    try {
-      const prefs = settingsRef.current;
-      const all = await pageRequest<ActionCandidate[]>(tabId, {
-        type: 'ACTIONS',
-        goal: draft.trim(),
-      });
-      if (version !== cursorVersion.current) return;
-      const candidates = all.filter((c) => !skipped.current.has(c.fingerprint));
-      const navigationTarget = candidates.find(
-        (c) => c.role.startsWith('pdf-') || c.role === 'html-section',
-      );
-      if (!candidates.length) {
-        setActionMessage(
-          isPdf
-            ? 'PDF actions support page and section navigation, for example: go to page 10, go to Appendix or 跳到附录. If this is Chrome’s PDF viewer, use Open PDF below first.'
-            : 'No available controls found in the loaded page, or all suggestions were skipped. Try Find to locate text, or leave Act and try again.',
-        );
-        setDecision({ id: 'none', confidence: 0, probability: 0 });
-        return;
-      }
-      if (
-        !navigationTarget &&
-        prefs.provider !== 'demo' &&
-        (!prefs.remoteConsent || (docRef.current?.sensitive && !consentRef.current))
-      )
-        throw new Error('Enable page sharing before using Jev.');
-      const provider =
-        prefs.provider === 'demo' ? new MockDecisionProvider() : new JevDecisionProvider(prefs);
-      const started = performance.now();
-      const result: CursorDecision = navigationTarget
-        ? { id: navigationTarget.id, confidence: 1, probability: 1 }
-        : await provider.choose(candidates, draft.trim(), history.current, controller.signal);
-      if (version !== cursorVersion.current) return;
-      const target = candidates.find((c) => c.id === result.id);
-      if (target) await pageRequest(tabId, { type: 'PROPOSE', id: target.id });
-      if (version !== cursorVersion.current) return;
-      setMetrics((old) => [
-        ...old.slice(-99),
-        {
-          mode: 'cursor',
-          units: candidates.length,
-          latencyMs: Math.round(performance.now() - started),
-          inputTokens: result.inputTokens || 0,
-          outputTokens: result.outputTokens || 0,
-          cacheHit: false,
-        },
-      ]);
-      if (navigationTarget && candidates.length > 1)
-        setActionMessage(
-          `找到 ${candidates.length} 个同名章节。请核对目标；可点击 Skip 切换下一个。`,
-        );
-      if (!target)
-        setActionMessage(
-          'No matching button or link in the loaded page. Try its visible label using one of the examples. To locate information, use Find.',
-        );
-      setDecision(result);
-      setCandidate(target);
-    } catch (e) {
-      if (version === cursorVersion.current)
-        setError(e instanceof Error ? e.message : 'Cursor failed.');
-    } finally {
-      if (version === cursorVersion.current) setCursorBusy(false);
-    }
-  }
-  async function execute() {
-    if (!candidate || tabRef.current?.id === undefined) return;
-    try {
-      await pageRequest(tabRef.current.id, { type: 'EXECUTE', id: candidate.id, approved: true });
-      history.current.push(`Executed ${candidate.accessibleName}`);
-      setActionDone(
-        candidate.role.startsWith('pdf-') || candidate.role === 'html-section'
-          ? `Moved to ${candidate.accessibleName.replace('Go to ', '')}.`
-          : `Clicked ${candidate.accessibleName}.`,
-      );
-      setDecision(undefined);
-      setCandidate(undefined);
-    } catch (e) {
-      setError((e as Error).message);
-    }
+  function propose() {
+    composer.current?.propose(draft);
   }
   function openPdf() {
     void chrome.tabs.create({
@@ -573,8 +442,6 @@ export default function App() {
             stopCursor();
             setCursor(true);
             setDraft('');
-            setActionDone('');
-            skipped.current.clear();
             input.current?.focus();
           }}
         >
@@ -708,111 +575,18 @@ export default function App() {
         )}
         {doc?.limited && <div className="notice">{doc.limited}</div>}
         {cursor ? (
-          <section className="cursor-card">
-            <span className="eyebrow">ONE INTENTIONAL STEP</span>
-            <h2>Where to next?</h2>
-            <p>
-              {isPdf
-                ? '输入 go to Appendix、跳到附录，或 go to page 10，确认后跳转。支持 PDF 目录标题；请在 Jev PDF Viewer 中使用。'
-                : '输入 go to + 目录标题，或“跳到安装”，可定位当前页面章节，确认后跳转；也可以输入按钮名称，推荐点击操作。'}
-            </p>
-            <p>找内容用 Find；目录导航、点击按钮、跳页用 Act。</p>
-            <div className="example-chips">
-              {(isPdf
-                ? ['go to Appendix', '跳到附录', 'go to page 10']
-                : actionExamples
-                    .filter((a) => a.role !== 'html-section')
-                    .map((a) => a.accessibleName)
-              ).map((example) => (
-                <button
-                  key={example}
-                  onClick={() => {
-                    setDraft(example);
-                    input.current?.focus();
-                  }}
-                >
-                  {example}
-                </button>
-              ))}
-            </div>
-            {!isPdf && actionExamples.some((a) => a.role === 'html-section') && (
-              <details className="section-navigation" open>
-                <summary>
-                  本页目录 · {actionExamples.filter((a) => a.role === 'html-section').length} 个章节
-                </summary>
-                <p>点击标题填入指令，再点“推荐”。</p>
-                <div>
-                  {actionExamples
-                    .filter((a) => a.role === 'html-section')
-                    .map((a) => (
-                      <button
-                        key={a.id}
-                        onClick={() => {
-                          setDraft(a.navigationGoal || a.accessibleName);
-                          input.current?.focus();
-                        }}
-                      >
-                        {a.accessibleName.replace(/^Go to /, '')}
-                      </button>
-                    ))}
-                </div>
-              </details>
-            )}
-            {actionDone && <p role="status">{actionDone}</p>}
-            {cursorBusy && (
-              <div className="loading-line">
-                <LoaderCircle className="spin" size={16} />
-                Finding the next step…
-              </div>
-            )}
-            {decision && (
-              <div className="proposal">
-                <span className="eyebrow">{candidate ? 'PROPOSED ACTION' : 'NO MATCH'}</span>
-                <h3>{candidate?.accessibleName || 'No matching action'}</h3>
-                {actionMessage && <p>{actionMessage}</p>}
-                {candidate && (
-                  <>
-                    <p>
-                      {candidate.role} ·{' '}
-                      {candidate.role.startsWith('pdf-') || candidate.role === 'html-section'
-                        ? 'Section navigation · no AI request'
-                        : settings.provider === 'demo'
-                          ? 'Demo suggestion'
-                          : `${Math.round(decision.probability * 100)}% choice probability`}
-                    </p>
-                    {candidate.riskHints.length > 0 && (
-                      <p className="risk">{candidate.riskHints.join(' ')}</p>
-                    )}
-                    <div className="button-row">
-                      <button
-                        className="primary"
-                        disabled={!!candidate.riskHints.length}
-                        onClick={() => void execute()}
-                      >
-                        <Check size={15} />
-                        {candidate.role.startsWith('pdf-') || candidate.role === 'html-section'
-                          ? 'Approve & go'
-                          : 'Approve & click'}
-                      </button>
-                      <button
-                        className="small-button"
-                        onClick={() => {
-                          skipped.current.add(candidate.fingerprint);
-                          void propose();
-                        }}
-                      >
-                        Skip
-                      </button>
-                    </div>
-                  </>
-                )}
-              </div>
-            )}
-            <button className="text-button" onClick={() => stopCursor()}>
-              <Square size={12} />
-              Stop Cursor
-            </button>
-          </section>
+          <ActionComposer
+            key={tab?.id}
+            ref={composer}
+            tabId={tab?.id}
+            document={doc}
+            settings={settings}
+            sensitiveAllowed={sensitiveAllowed}
+            isPdf={isPdf}
+            setDraft={setDraft}
+            onBusy={setCursorBusy}
+            onMetric={(metric) => setMetrics((old) => [...old.slice(-99), metric])}
+          />
         ) : (
           <>
             <div className="section-label">
@@ -982,13 +756,16 @@ export default function App() {
             ref={input}
             aria-label="Intent"
             value={draft}
-            maxLength={500}
-            onChange={(e) => setDraft(e.target.value)}
+            maxLength={cursor ? 2000 : 500}
+            onChange={(e) => {
+              if (cursor) composer.current?.stop();
+              setDraft(e.target.value);
+            }}
             placeholder={
               cursor
                 ? isPdf
-                  ? 'go to Appendix / 跳到第10页'
-                  : 'go to 章节标题 / 要点击的按钮名称'
+                  ? '先跳到附录，然后查找关键词'
+                  : '先跳到 Installation，然后查找 requirements'
                 : '输入问题或关键词，查找原文'
             }
           />

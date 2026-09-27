@@ -6,7 +6,7 @@
 
 ## 直接安装（无需编译）
 
-1. [下载 JevLens v0.1.0 Chrome ZIP](https://pyroweiqiu.github.io/JevLens/downloads/JevLens-0.1.0-chrome.zip)，在电脑上解压。
+1. [下载 JevLens v0.2.0 Chrome ZIP](https://pyroweiqiu.github.io/JevLens/downloads/JevLens-0.2.0-chrome.zip)，在电脑上解压。
 2. 打开 `chrome://extensions`，开启右上角“开发者模式”，点击“加载已解压的扩展程序”。
 3. 选择解压后包含 `manifest.json` 的文件夹，保留该文件夹；刷新网页，点击工具栏里的 JevLens。
 
@@ -70,7 +70,7 @@ npm run proxy
 
 - **SEE**：默认按句子分析；Sentence / Paragraph 切换粒度，Density 调整显示数量而不重新推理。悬停加强高亮，点击跳到精确原文，页面滚动同步卡片。
 - **FIND**：点击 Find 后显示使用说明和当前页面标题示例；点击示例填入后，再点“查找”。底部也可直接输入意图，例如 `training GPUs` 或 `installation instructions`。自动跳到第一条匹配；箭头按钮切换；Escape 清除意图，恢复一般高亮。
-- **ACT**：选择 Act，输入目标，点击“推荐”。可点击页面实际按钮名称示例来填入输入框。会查找已加载页面的前 200 个非隐藏控件，自动滚动预览目标并显示绿色光环，再点击 **Approve & click**。Skip 排除当前目标；Stop / Escape 取消。支付、发送、删除、授权、表单提交、输入和下载等识别到的风险动作只能由用户在网页手动操作。
+- **ACT · 动作编排**：在“计划草稿”输入中英文复合任务，用“然后 / then / 换行 / 分号”分步，最多 12 步；候选库可搜索章节、按钮和链接，点击名称预览，＋添加到草稿。支持章节 / PDF 页码、点击、原文查找、页面滚动、等待（最多 10 秒）和手动步骤。每一步先推荐，再由用户确认；结束后手动推荐下一步。待执行步骤可上移、移除、跳过，Stop 可中止等待与请求。复杂语义选择使用已配置的 Jev；Demo 只做规则匹配。
 - **PDF**：侧栏 Open PDF、页面右键 Open in Jev PDF Viewer，或者进入查看器后选择本地文件。PDF.js 与 worker 均本地打包。Chrome 151+ 支持注册的 PDF MIME stream；旧版使用显式打开路径。无需本地文件系统全局访问权限。
 - **统计**：Settings → Developer stats 查看单位数、批次数、缓存命中、实际输入/输出 token 与累计时间。Demo token 为零。
 
@@ -160,7 +160,7 @@ npm run qa:live
 - 跨域 iframe、关闭的 Shadow DOM、canvas 编辑器、浏览器内部页面不支持精确提取。不会绕过登录或付费墙。
 - HTML 单次最多 2,400 个单位；优先评分当前视口附近，再处理剩余批次。复杂超长页仍可能需要进一步做后台切片和分层检索。
 - PDF 根据文字层和坐标恢复段落；复杂双栏、表格、公式的阅读顺序可能不理想。扫描 PDF 提示无文字层。某些远程 PDF 需要下载后手动选择。
-- Cursor 仅执行一次批准的点击或 网页章节导航或 Jev PDF Viewer 页码/章节跳转；不会自动填写、提交或循环执行。跨屏查找仅覆盖已加载 DOM 的前 200 个非隐藏控件，不会展开菜单或自动加载无限滚动内容。风险判断是保守规则，不能证明任意网页按钮的实际副作用；执行前应查看高亮目标。
+- Act 支持最多 12 步的可审阅编排，每一步独立确认；不会自动填写、提交或循环执行。跨屏查找仅覆盖已加载 DOM 的前 200 个非隐藏控件，不会展开菜单或自动加载无限滚动内容。风险判断是保守规则，不能证明任意网页按钮的实际副作用；执行前应查看高亮目标。
 - API 请求取消、DOM 变化去抖与分数缓存已实现；真实模型延迟、排名质量及费用需要提供密钥后测量。
 - HTTP(S) 全站权限用于内容脚本和用户选择的 PDF/代理访问；当前适合加载本地构建，尚未做商店分发审核。
 
@@ -177,3 +177,14 @@ npm run qa:live
 本地运行 `npm run site:preview`，打开 `http://127.0.0.1:4174`；另一个终端运行 `npm run site:check` 检查布局与交互。
 
 GitHub Pages 发布来源为 **main 分支 /docs 目录**。公开仓库文件清单、排除规则与发布步骤见 [PUBLICATION.md](PUBLICATION.md)。提交前运行 `npm run audit:public`，不要使用强制添加绕过密钥目录的忽略规则。
+
+## v0.2.0 动作编排例子
+
+- `先跳到 Installation，然后查找 requirements，最后回到顶部`：章节导航 → 原文查找 → 滚动。
+- `先跳到第2页，然后查找 conclusion，最后回到顶部`：在 Jev PDF Viewer 使用，文件需至少两页。
+- `点击 "Reveal details"; 点击 "Next section"; 查找 GPUs; 回到顶部`：在含这些控件的页面展开内容后，下一步会重新读取已加载候选。
+- `如果页面包含 "Training" 就查找 GPUs`：仅支持可读正文包含文本的简单条件；不存在时暂停，不伪装成完成。
+
+支付、删除、发送、表单填写等仍是手动步骤。复杂的分支、循环和不明确条件会暂停，需改成明确步骤或手动处理。每次确认只执行当前一步；切换标签页或离开 Act 会重建流程。同标签页更新保留计划，但需要重新推荐目标。本文例子是操作语法，具体章节和控件必须真实存在。
+
+已验证本地四步动态页面流程、条件不满足暂停、风险动作禁用和等待中止。真实 Jev 语义质量仍需要有效 Key 验证；不会把模拟模型测试算作真实 AI 验证。设计依据：[TypeSafe Choice](https://docs.typesafe.ai/primitives/choice) 与 [Function calling](https://docs.typesafe.ai/cookbooks/function_calling)。

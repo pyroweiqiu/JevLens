@@ -81,7 +81,13 @@ function nameOf(el: Element): string {
 export class ActionController {
   private targets = new Map<
     string,
-    { el: HTMLElement; candidate: ActionCandidate; page?: number; section?: boolean }
+    {
+      el: HTMLElement;
+      candidate: ActionCandidate;
+      page?: number;
+      section?: boolean;
+      scroll?: string;
+    }
   >();
   private proposed: string | null = null;
   private halo?: HTMLDivElement;
@@ -89,7 +95,42 @@ export class ActionController {
   extract(goal = ''): ActionCandidate[] {
     this.stop();
     this.targets.clear();
+    if (/^scroll (?:to top|to bottom|up|down)$/i.test(goal)) {
+      const candidate: ActionCandidate = {
+        id: goal,
+        role: 'page-scroll',
+        accessibleName: goal,
+        fingerprint: goal,
+        riskHints: [],
+      };
+      this.targets.set(goal, { el: document.documentElement, candidate, scroll: goal });
+      return [candidate];
+    }
     if (this.pdf) {
+      if (!goal) {
+        for (const el of document.querySelectorAll<HTMLElement>('.pdf-page[data-page-number]')) {
+          const page = Number(el.dataset.pageNumber);
+          let sections: PdfSection[] = [];
+          try {
+            sections = JSON.parse(el.dataset.pdfSections || '[]');
+          } catch {
+            /* Ignore damaged outline. */
+          }
+          for (const s of sections) {
+            const id = `pdf-outline-${page}-${this.targets.size}`;
+            const candidate: ActionCandidate = {
+              id,
+              role: 'pdf-section',
+              accessibleName: `Go to ${s.title} · page ${page}`,
+              navigationGoal: `go to page ${page}`,
+              fingerprint: id,
+              riskHints: [],
+            };
+            this.targets.set(id, { el, page, candidate });
+          }
+        }
+        return Array.from(this.targets.values(), (t) => t.candidate).slice(0, 300);
+      }
       const match =
         goal.trim().match(/^(?:go\s+to\s+|jump\s+to\s+|open\s+)?page\s+(\d+)[.!?]?$/i) ||
         goal.trim().match(/^(?:跳转到|跳到|转到|打开|去)?第?\s*(\d+)\s*页[。！]?$/);
@@ -221,7 +262,7 @@ export class ActionController {
     const target = this.targets.get(id);
     if (!target?.el.isConnected) throw new Error('Target changed. Find the next action again.');
     this.proposed = id;
-    if (target.page || target.section) return;
+    if (target.page || target.section || target.scroll) return;
     target.el.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' });
     this.halo = document.createElement('div');
     this.halo.dataset.jevUi = 'true';
@@ -248,6 +289,18 @@ export class ActionController {
     if (!approved || this.proposed !== id || !target?.el.isConnected)
       throw new Error('A fresh, highlighted proposal and explicit approval are required.');
     const { el, candidate } = target;
+    if (target.scroll) {
+      this.stop();
+      const root = document.scrollingElement || document.documentElement;
+      const top =
+        target.scroll === 'scroll to top'
+          ? 0
+          : target.scroll === 'scroll to bottom'
+            ? root.scrollHeight
+            : root.scrollTop + (target.scroll === 'scroll up' ? -1 : 1) * innerHeight * 0.8;
+      root.scrollTo({ top, behavior: 'instant' });
+      return;
+    }
     if (target.section) {
       if (!navigable(el) || sectionFingerprint(el) !== candidate.fingerprint)
         throw new Error('Section changed or is hidden. Propose again.');

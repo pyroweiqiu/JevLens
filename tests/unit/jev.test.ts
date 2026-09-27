@@ -212,3 +212,49 @@ it('rejects chat completion responses at a custom endpoint', async () => {
     ),
   ).rejects.toThrow('Jev / Decisions-compatible');
 });
+
+it('keeps candidate coverage within the Choice option limit and aggregates usage', async () => {
+  const candidates = Array.from({ length: 500 }, (_, i) => ({
+    id: `candidate-${i}`,
+    role: 'button',
+    accessibleName: `Item ${i}`,
+    fingerprint: `f-${i}`,
+    riskHints: [],
+  }));
+  const seen = new Set<string>();
+  const mock = vi.fn(async (_url: string, options: RequestInit) => {
+    const body = JSON.parse(options.body as string);
+    const ids = Object.keys(body.questions.next_action.criteria).filter((id) => id !== 'none');
+    expect(ids.length).toBeLessThanOrEqual(200);
+    ids.forEach((id) => seen.add(id));
+    const chosen = ids.includes('candidate-499') ? 'candidate-499' : ids[0];
+    return new Response(
+      JSON.stringify({
+        answers: {
+          next_action: {
+            type: 'choice',
+            choice: chosen,
+            confidence: 0.9,
+            probabilities: { [chosen]: 1 },
+          },
+        },
+        usage: { input_tokens: 10, output_tokens: 2 },
+      }),
+    );
+  });
+  vi.stubGlobal('fetch', mock);
+  const selected = await new JevDecisionProvider({
+    ...DEFAULT_SETTINGS,
+    provider: 'custom',
+  }).choose(
+    candidates,
+    '请选择最后一项',
+    ['先打开菜单，然后选择最后一项'],
+    new AbortController().signal,
+  );
+  expect(seen.size).toBe(500);
+  expect(selected.id).toBe('candidate-499');
+  expect(mock).toHaveBeenCalledTimes(4);
+  expect(selected.inputTokens).toBe(40);
+  expect(selected.outputTokens).toBe(8);
+});

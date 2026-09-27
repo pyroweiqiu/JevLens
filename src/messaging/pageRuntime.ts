@@ -81,6 +81,8 @@ export function createPageRuntime(
           break;
         case 'ACTIONS':
           return { ok: true, value: actions.extract(cmd.goal) };
+        case 'LIST_ACTIONS':
+          return { ok: true, value: new ActionController(!!options.pdf).extract() };
         case 'PROPOSE':
           actions.propose(cmd.id);
           break;

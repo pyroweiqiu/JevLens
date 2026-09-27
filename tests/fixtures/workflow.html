@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Workflow exercise</title>
+    <style>
+      body {
+        font: 18px/1.7 sans-serif;
+        margin: 35px;
+      }
+      section {
+        min-height: 800px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Workflow exercise</h1>
+    <section>
+      <h2>Introduction</h2>
+      <p>
+        Training requires eight GPUs. Read the instructions and review each action before
+        proceeding.
+      </p>
+      <button
+        type="button"
+        id="reveal"
+        onclick="
+          document.querySelector('#next').hidden = false;
+          this.textContent = 'Details revealed';
+        "
+      >
+        Reveal details</button
+      ><button
+        type="button"
+        id="next"
+        hidden
+        onclick="
+          document.querySelector('#details').scrollIntoView();
+          this.dataset.executed = 'true';
+        "
+      >
+        Next section</button
+      ><button type="button" id="danger" onclick="this.dataset.executed = 'true'">
+        Delete account
+      </button>
+    </section>
+    <section id="details">
+      <h2>Details</h2>
+      <p>
+        Training requires eight GPUs and takes three days to complete. These results illustrate a
+        multi-step reading task.
+      </p>
+    </section>
+  </body>
+</html>

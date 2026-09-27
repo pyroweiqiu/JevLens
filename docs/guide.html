@@ -38,7 +38,7 @@
           <p class="eyebrow">JEVLENS / HANDBOOK</p>
           <h1>使用指南<span>。</span></h1>
           <a href="#start">01　安装与打开</a><a href="#see">02　See · 看重点</a
-          ><a href="#find">03　Find · 找原文</a><a href="#act">04　Act · 去下一步</a
+          ><a href="#find">03　Find · 找原文</a><a href="#act">04　Act · 动作编排</a
           ><a href="#pdf">05　PDF 与目录</a><a href="#api">06　API 设置</a
           ><a href="#troubleshooting">07　遇到问题</a><a href="#privacy">08　隐私与限制</a
           ><a class="guide-examples" href="./examples.html">去看 120 个使用场景 ↗</a>
@@ -53,7 +53,7 @@
             </p>
             <ol>
               <li>
-                <a href="./downloads/JevLens-0.1.0-chrome.zip" download>下载 JevLens v0.1.0 ZIP</a>
+                <a href="./downloads/JevLens-0.2.0-chrome.zip" download>下载 JevLens v0.2.0 ZIP</a>
                 并解压，无需编译。
               </li>
               <li>
@@ -109,25 +109,51 @@
           </section>
           <section id="act">
             <p class="eyebrow">ACT / 04</p>
-            <h2>先看目标，再确认下一步。</h2>
+            <h2>把复杂目标拆成可确认的动作。</h2>
             <p>
-              <strong>章节导航：</strong>在 Act
-              的“本页目录”选择一个已有标题，点击“推荐”，核对目标后点击
-              <strong>Approve &amp; go</strong>。也可以输入
-              <code>go to</code> 加目录中的准确标题。这种导航无需 API。
-            </p>
-            <p>
-              <strong>页面点击：</strong
-              >输入页面中已有的按钮或链接名称，点击“推荐”，查看绿色光环是否指向正确控件，再点
-              <strong>Approve &amp; click</strong>。Skip 换候选，Stop / Escape 取消。
+              Act · 动作编排支持最多 12
+              步。在底部输入目标，或在“计划草稿”每行填写一步，点击“生成计划”。明确的“然后 / then /
+              换行 / 分号”会分步；按钮或章节名中含连接词时请加引号。
             </p>
             <div class="guide-callout coral">
-              Act
-              只执行确认后的单次动作。支付、删除、发送、授权、表单提交、输入和下载等识别到的风险操作需要你手动完成；它不会自己连续操作或完成整套流程。
+              <code>先跳到 Installation，然后查找 requirements，最后回到顶部</code><br /><code
+                >先跳到第2页，然后查找 conclusion，最后回到顶部</code
+              >
             </div>
+            <ol>
+              <li>
+                在“候选动作 /
+                本页目录”中搜索章节、按钮或链接。点击名称直接预览，点击＋加入草稿；可按类型筛选和刷新候选。
+              </li>
+              <li>
+                生成后核对执行计划，可上移或移除待执行步骤。编辑草稿后重新生成会重置执行记录，不会撤销已发生的动作。
+              </li>
+              <li>
+                当前步骤会显示实际目标。核对后点 Approve &amp; go、Approve &amp; click
+                或“确认执行当前步骤”。完成后点“推荐当前步骤”继续；不会自动执行下一步。
+              </li>
+              <li>
+                页面更新后会重新读取候选，过期目标需要重新推荐；计划保留。切换标签页或退出 Act
+                后需重新建立计划。随时点击 Stop Cursor 停止。
+              </li>
+            </ol>
             <p>
-              目录仅覆盖当前页已加载的标题及同页目录锚点；跨页目录链接属于页面点击。它不会自动跨页读取章节、展开菜单或加载无限滚动列表。
+              <strong>可组合：</strong>章节 / PDF 页码导航、页面点击、查找原文、回到顶部 /
+              滚动到底部 / 向上或向下滚动、等待 1–10 秒、手动步骤。逐步显示完成、待执行、跳过状态。
             </p>
+            <p>
+              <strong>简单条件：</strong
+              ><code>如果页面包含 "Training" 就查找 GPUs</code
+              >。条件检查当前可读正文；不存在时暂停，可修改或明确跳过。任意条件分支、循环、自动填写表单尚不支持，会提示手动处理。
+            </p>
+            <p>
+              明确章节、页码和直接选择候选无需 AI；Demo 使用关键词规则。复杂语义匹配由你配置的 Jev /
+              Decisions
+              服务逐步选择目标，需要页面发送许可；语义结果仍需核对。它不会凭空生成页面不存在的动作。
+            </p>
+            <div class="guide-callout">
+              支付、删除、发送、授权、表单提交、输入和下载等风险动作仍需手动完成。你可在页面处理后选择“我已手动完成”，或跳过当前步骤。
+            </div>
           </section>
           <section id="pdf">
             <p class="eyebrow">PDF / 05</p>
@@ -267,7 +293,7 @@
         <span>Read with intention.</span
         ><span
           ><a href="./privacy.html">隐私说明</a> ·
-          <a href="./downloads/JevLens-0.1.0-chrome.zip" download>下载插件 ↓</a></span
+          <a href="./downloads/JevLens-0.2.0-chrome.zip" download>下载插件 ↓</a></span
         >
       </footer>
     </div>

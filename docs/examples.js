@@ -68,7 +68,7 @@ function drawDetail(e, focus = false) {
         : `
     <section class="recipe-step"><span class="step-number see-color">02</span><div><h3>See · 先看页面重点</h3><p>切换 See，尝试 Sentence / Paragraph 和 Density，再点一张卡片检查对应原文。围绕“${escape(e.question.replace(/[？。]$/, ''))}”查看内容。</p><p class="expected">观察：高亮对应正文，不是聊天式总结。Demo 只用于熟悉规则评分与操作。</p></div></section>
     <section class="recipe-step"><span class="step-number find-color">03</span><div><h3>Find · 复制一个词，先找原文</h3>${queryBlock('DEMO · 原文关键词起步', e.keyword, '关键词')}<p>粘贴到 Find，点击“查找”，点击结果检查上下文。若页面没有这个词，换成当前原文中的词。</p>${queryBlock('真实 AI · 可尝试的中文问题', e.question, '问题')}<p class="expected">先在 API settings 配置可用服务并允许发送内容。预期是定位相关原文，不生成答案；此问题的语义效果待你验证。</p></div></section>
-    <section class="recipe-step"><span class="step-number act-color">04</span><div><h3>Act · 核对目标，再确认</h3><div class="act-instructions">${act}</div><p class="expected">确认前不执行。找不到目标时，展开实际内容或使用准确标题；不会自动展开、翻页、购买或发送。</p></div></section>
+    <section class="recipe-step"><span class="step-number act-color">04</span><div><h3>Act · 动作编排</h3><div class="act-instructions">${act}</div>${queryBlock('编排 · 每步确认后执行', e.pdf ? `先跳到第2页，然后查找 ${e.keyword}，最后回到顶部` : `先查找 ${e.keyword}，然后回到顶部`, '编排指令')}<p class="expected">确认前不执行。找不到目标时，展开实际内容或使用准确标题；不会自动展开、翻页、购买或发送。</p></div></section>
     <aside class="case-limit"><strong>这个页面要留意</strong><p>${escape(note(e))}</p></aside>`
     }
     <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>

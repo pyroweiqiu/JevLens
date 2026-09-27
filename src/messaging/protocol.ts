@@ -16,6 +16,7 @@ export const pageCommandSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('SELECT'), id: z.string() }),
   z.object({ type: z.literal('CLEAR') }),
   z.object({ type: z.literal('ACTIONS'), goal: z.string().max(500).optional() }),
+  z.object({ type: z.literal('LIST_ACTIONS') }),
   z.object({ type: z.literal('PROPOSE'), id: z.string() }),
   z.object({ type: z.literal('EXECUTE'), id: z.string(), approved: z.literal(true) }),
   z.object({ type: z.literal('STOP') }),

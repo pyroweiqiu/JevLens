@@ -2,7 +2,7 @@ const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
 const modes = {
   see: ['SEE / 看重点', 'What matters on this page?', '01 / 03　从满屏信息，到值得读的原文。'],
   find: ['FIND / 找原文', '训练需要多少 GPU？', '02 / 03　问题有了方向，答案有了出处。'],
-  act: ['ACT / 去下一步', 'go to Appendix', '03 / 03　确认目标，再迈出下一步。'],
+  act: ['ACT / 动作编排', 'go to Appendix', '03 / 03　确认目标，再迈出下一步。'],
 };
 function setMode(mode) {
   document.body.dataset.mode = mode;

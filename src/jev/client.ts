@@ -126,6 +126,33 @@ export class JevDecisionProvider implements DecisionProvider {
     history: string[],
     signal: AbortSignal,
   ) {
+    if (candidates.length > 200) {
+      const groups = Array.from({ length: Math.ceil(candidates.length / 200) }, (_, i) =>
+        candidates.slice(i * 200, (i + 1) * 200),
+      );
+      const selections: CursorDecision[] = await Promise.all(
+        groups.map((group) => this.choose(group, goal, history, signal)),
+      );
+      signal.throwIfAborted();
+      const winners = candidates.filter((c) => selections.some((s) => s.id === c.id));
+      const result: CursorDecision =
+        winners.length > 1
+          ? await this.choose(winners, goal, history, signal)
+          : selections.find((s) => s.id !== 'none') || {
+              id: 'none',
+              confidence: 0,
+              probability: 0,
+            };
+      return {
+        ...result,
+        inputTokens:
+          selections.reduce((sum, s) => sum + (s.inputTokens || 0), 0) +
+          (winners.length > 1 ? result.inputTokens || 0 : 0),
+        outputTokens:
+          selections.reduce((sum, s) => sum + (s.outputTokens || 0), 0) +
+          (winners.length > 1 ? result.outputTokens || 0 : 0),
+      };
+    }
     if (!candidates.length)
       return { id: 'none', confidence: 0, probability: 0, inputTokens: 0, outputTokens: 0 };
     const response = await this.request(actionRequest(candidates, goal, history), signal);

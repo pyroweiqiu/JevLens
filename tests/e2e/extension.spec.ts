@@ -7,6 +7,7 @@ import {
   type Page,
 } from '@playwright/test';
 import { createServer, type Server } from 'node:http';
+import { DEFAULT_SETTINGS } from '../../src/shared/types';
 import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
@@ -36,9 +37,11 @@ test.beforeAll(async () => {
     res.setHeader('Content-Type', 'text/html');
     res.end(
       readFileSync(
-        req.url === '/structured'
-          ? 'tests/fixtures/structured.html'
-          : 'tests/fixtures/article.html',
+        req.url === '/workflow'
+          ? 'tests/fixtures/workflow.html'
+          : req.url === '/structured'
+            ? 'tests/fixtures/structured.html'
+            : 'tests/fixtures/article.html',
       ),
     );
   });
@@ -263,7 +266,7 @@ test('PDF Act navigates to page 10 in English and Chinese, and explains invalid 
   await panel.screenshot({ path: 'test-results/pdf-navigation.png' });
   await panel.getByRole('textbox', { name: 'Intent' }).fill('go to page 99');
   await panel.getByRole('button', { name: 'Suggest action' }).click();
-  await expect(panel.locator('.notice.error')).toContainText('PDF page 99 is unavailable');
+  await expect(panel.locator('.workflow-message')).toContainText('PDF page 99 is unavailable');
   await expect(panel.getByRole('button', { name: 'Approve & go' })).toHaveCount(0);
   await panel.close();
   await viewer.close();
@@ -280,6 +283,7 @@ test('HTML outline navigates headings, TOC anchors and duplicate titles with exp
   await expect(panel.locator('.highlight-card').first()).toBeVisible();
   await panel.getByRole('button', { name: /Act\s*03/ }).click();
   await expect(panel.locator('.section-navigation')).toContainText('本页目录');
+  await panel.getByLabel('候选动作类型').selectOption('section');
   await panel
     .locator('.section-navigation')
     .getByRole('button', { name: 'API table', exact: true })
@@ -309,6 +313,7 @@ test('HTML outline navigates headings, TOC anchors and duplicate titles with exp
   await expect(panel.locator('.proposal h3')).toContainText('match 2');
   await panel.getByRole('button', { name: 'Approve & go' }).click();
   await expect(page.getByRole('heading', { name: 'FAQ', exact: true }).nth(1)).toBeInViewport();
+  await panel.locator('.section-navigation summary').click();
   await panel
     .locator('.section-navigation')
     .getByRole('button', { name: 'FAQ · match 2', exact: true })
@@ -318,7 +323,7 @@ test('HTML outline navigates headings, TOC anchors and duplicate titles with exp
   await panel.screenshot({ path: 'test-results/html-section-navigation.png' });
   await panel.getByRole('textbox', { name: 'Intent' }).fill('go to Missing');
   await panel.getByRole('button', { name: 'Suggest action' }).click();
-  await expect(panel.locator('.notice.error')).toContainText('No section matching');
+  await expect(panel.locator('.workflow-message')).toContainText('No section matching');
   await panel.close();
   await page.close();
 });
@@ -467,6 +472,65 @@ test('API settings switches providers, tests native decisions, isolates keys and
       (r) => r.model === 'test-custom-jev' && r.state.includes('A field guide to focused reading'),
     ),
   ).toBe(true);
+  await panel.close();
+  await page.close();
+});
+
+test('workflow executes one approved step at a time and refreshes dynamic candidates', async () => {
+  await worker.evaluate((settings) => chrome.storage.local.set({ settings }), DEFAULT_SETTINGS);
+  const page = await context.newPage();
+  await page.goto(base + '/workflow');
+  const id = await tabFor(page);
+  const panel = await context.newPage();
+  await panel.setViewportSize({ width: 390, height: 850 });
+  await panel.goto(`chrome-extension://${extensionId}/sidepanel.html`);
+  await worker.evaluate((id) => chrome.tabs.update(id, { active: true }), id);
+  await expect(panel.locator('.highlight-card').first()).toBeVisible();
+  await panel.getByRole('button', { name: /Act\s*03/ }).click();
+  await panel
+    .getByLabel('计划草稿')
+    .fill('点击 "Reveal details"; 点击 "Next section"; 查找 GPUs; 回到顶部');
+  await panel.getByRole('button', { name: '生成计划', exact: true }).click();
+  await expect(panel.locator('.workflow-plan li')).toHaveCount(4);
+  await expect(panel.locator('.proposal h3')).toHaveText('Reveal details');
+  await expect(page.locator('#next')).toBeHidden();
+  await panel.getByRole('button', { name: 'Approve & click' }).click();
+  await expect(page.locator('#next')).toBeVisible();
+  await expect(panel.locator('.workflow-plan')).toContainText('1/4');
+  await expect(page.locator('#next')).not.toHaveAttribute('data-executed', 'true');
+  await expect(panel.locator('.catalog-list')).toContainText('Next section');
+  await panel.getByRole('button', { name: '推荐当前步骤', exact: true }).click();
+  await expect(panel.locator('.proposal h3')).toHaveText('Next section');
+  await panel.getByRole('button', { name: 'Approve & click' }).click();
+  await expect(page.locator('#next')).toHaveAttribute('data-executed', 'true');
+  await expect(panel.locator('.workflow-plan')).toContainText('2/4');
+  await panel.getByRole('button', { name: '推荐当前步骤', exact: true }).click();
+  await expect(panel.locator('.proposal h3')).toContainText('定位');
+  await panel.getByRole('button', { name: '确认执行当前步骤', exact: true }).click();
+  await expect(panel.locator('.workflow-plan')).toContainText('3/4');
+  await panel.getByRole('button', { name: '推荐当前步骤', exact: true }).click();
+  await expect(panel.locator('.proposal h3')).toHaveText('scroll to top');
+  await panel.getByRole('button', { name: 'Approve & go' }).click();
+  await expect.poll(() => page.evaluate(() => scrollY)).toBe(0);
+  await expect(panel.locator('.workflow-plan')).toContainText('4/4');
+  await panel.screenshot({ path: 'test-results/workflow-completed.png' });
+  await panel
+    .getByLabel('计划草稿')
+    .fill('如果页面包含 "missing condition" 就点击 Delete account; 回到顶部');
+  await panel.getByRole('button', { name: '生成计划', exact: true }).click();
+  await expect(panel.locator('.workflow-message')).toContainText('条件未满足');
+  await expect(panel.locator('.proposal')).toHaveCount(0);
+  await panel.getByLabel('计划草稿').fill('点击 Delete account');
+  await panel.getByRole('button', { name: '生成计划', exact: true }).click();
+  await expect(panel.getByRole('button', { name: 'Approve & click' })).toBeDisabled();
+  await expect(page.locator('#danger')).not.toHaveAttribute('data-executed', 'true');
+  await panel.getByLabel('计划草稿').fill('等待 5 秒; 点击 Next section');
+  await panel.getByRole('button', { name: '生成计划', exact: true }).click();
+  await panel.getByRole('button', { name: '确认执行当前步骤', exact: true }).click();
+  await panel.getByRole('button', { name: /Stop Cursor/ }).click();
+  await expect(panel.locator('.workflow-message')).toContainText('已停止');
+  await expect(panel.locator('.workflow-plan')).toContainText('0/2');
+  await expect(panel.locator('.proposal')).toHaveCount(0);
   await panel.close();
   await page.close();
 });

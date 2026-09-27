@@ -955,3 +955,103 @@ input {
   padding: 7px 10px;
   overflow-wrap: anywhere;
 }
+
+/* Action workflow: keep the plan and real page targets inspectable. */
+.action-composer textarea,
+.catalog-filters input,
+.catalog-filters select {
+  width: 100%;
+  border: 1px solid #d3dfd3;
+  border-radius: 6px;
+  padding: 8px;
+  background: white;
+  color: #263d31;
+  font: inherit;
+}
+.workflow-editor-label {
+  display: grid;
+  gap: 7px;
+  font-size: 12px;
+  margin: 15px 0 10px;
+}
+.action-composer textarea {
+  resize: vertical;
+  min-height: 88px;
+}
+.catalog-filters {
+  display: grid !important;
+  grid-template-columns: 1fr auto;
+  gap: 6px;
+}
+.catalog-filters input {
+  grid-column: 1 / -1;
+}
+.catalog-list {
+  display: block !important;
+  max-height: 230px;
+  overflow-y: auto;
+}
+.catalog-item {
+  display: flex !important;
+  gap: 5px;
+  margin: 5px 0;
+}
+.catalog-item > button:first-child {
+  flex: 1;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.workflow-plan {
+  margin: 18px 0;
+  border: 1px solid #d2decf;
+  border-radius: 8px;
+  padding: 12px;
+  background: #f8faf4;
+}
+.workflow-plan h3 {
+  font-size: 13px;
+  margin: 0 0 10px;
+}
+.workflow-plan ol {
+  margin: 0;
+  padding-left: 22px;
+}
+.workflow-plan li {
+  padding: 9px 5px;
+  border-bottom: 1px solid #e5ebdf;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+.workflow-plan li[aria-current] {
+  background: #e4efcf;
+  border-radius: 5px;
+}
+.workflow-plan small {
+  display: block;
+  color: #64735c;
+  margin-top: 5px;
+}
+.workflow-plan p {
+  font-size: 10px;
+}
+.step-tools {
+  display: flex;
+  gap: 6px;
+  margin-top: 7px;
+}
+.step-tools button {
+  border: 1px solid #d0dcc9;
+  border-radius: 4px;
+  background: white;
+  font-size: 10px;
+}
+.workflow-message {
+  padding: 10px;
+  background: #fff4d9;
+  border-radius: 6px;
+  overflow-wrap: anywhere;
+}
+.action-composer .button-row {
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
