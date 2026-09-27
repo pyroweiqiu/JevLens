@@ -1,8 +1,16 @@
 # JevLens
 
-[一屏交互展示](https://pyroweiqiu.github.io/JevLens/) · [GitHub 源码](https://github.com/pyroweiqiu/JevLens)
+[一屏交互展示](https://pyroweiqiu.github.io/JevLens/) · [3 分钟网页 Slides](https://pyroweiqiu.github.io/JevLens/jevhackathon/) · [GitHub 源码](https://github.com/pyroweiqiu/JevLens)
 
 浏览器里的 SEE → FIND → ACT。使用 Chrome 原生侧栏展示重要原文、按意图定位段落，并在用户批准后执行一个可见页面动作。
+
+## 3 分钟网页演示
+
+打开 [Jev Hackathon Slides](https://pyroweiqiu.github.io/JevLens/jevhackathon/)，用「上一页 / 下一页」、滚轮或触屏滑动翻页。进入一页后自动播放本页动画，结束后停留；重新进入会重播。空格暂停，方向键翻页，F 全屏。
+
+共 9 页，按约 180 秒编排：项目介绍、主要功能、设计哲学，以及论文研究、开发文档、在线课程、商品规格和技术标准五类案例。案例使用本地预设动画与节选 / 改写内容，不发起 AI 请求；商品规格明确使用虚构示例。Act 的确认由动画模拟，实际插件仍需用户逐步确认。页面包含来源与案例库链接。
+
+本地预览：`npm run site:preview`，访问 `/jevhackathon/`；检查：`npm run slides:check`。
 
 ## 直接安装（无需编译）
 

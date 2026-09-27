@@ -22,7 +22,8 @@
     "site:preview": "node scripts/site-preview.mjs",
     "site:examples": "node scripts/build-examples.mjs && prettier --write docs/examples-data.js",
     "site:check": "node scripts/site-check.mjs",
-    "audit:public": "node scripts/check-publication.mjs"
+    "audit:public": "node scripts/check-publication.mjs",
+    "slides:check": "node scripts/slides-check.mjs"
   },
   "dependencies": {
     "idb": "^8.0.0",

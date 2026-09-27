@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#14121e" />
+    <meta
+      name="description"
+      content="3 分钟认识 JevLens：Chrome 浏览器助手，See / Find / Act 的设计理念，以及五类场景的自动演示。"
+    />
+    <title>JevLens · 3 分钟场景演示</title>
+    <link rel="icon" href="../icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./slides.css" />
+    <script type="module" src="./slides.js"></script>
+  </head>
+  <body>
+    <div class="deck">
+      <header class="masthead">
+        <a class="brand" href="../"
+          ><img src="../icon.svg" alt="" width="30" height="30" />jev<span>lens</span></a
+        >
+        <span class="edition">JEV HACKATHON / 2026</span>
+        <span id="play-state">页内自动演示 · 手动翻页</span>
+      </header>
+      <main id="stage" aria-label="JevLens 演示幻灯片"></main>
+      <div class="narration">
+        <span class="caption-label">讲解</span>
+        <p id="caption" aria-live="off"></p>
+      </div>
+      <footer class="player" aria-label="演示播放控制">
+        <div class="timeline">
+          <label class="sr-only" for="seek">本页演示进度（秒）</label
+          ><input id="seek" type="range" min="0" max="15" step="0.1" value="0" />
+        </div>
+        <div class="controls">
+          <div class="transport">
+            <button id="previous" aria-label="上一页">← 上一页</button
+            ><button id="play" aria-label="暂停演示">暂停 Ⅱ</button
+            ><button id="next" aria-label="下一页">下一页 →</button
+            ><span id="time">00:00 / 00:15</span>
+          </div>
+          <nav id="chapters" aria-label="幻灯片章节"></nav>
+          <div class="end-controls">
+            <span id="slide-count">01 / 09</span
+            ><button id="fullscreen" aria-label="全屏演示">全屏 ↗</button>
+          </div>
+        </div>
+        <p class="disclosure">
+          预设动画 · 页面内容节选 / 改写 · 无 AI 请求 · 实际 Act 需用户逐步确认<span
+            >滚轮 / 滑动翻页 · 空格暂停 · F 全屏</span
+          >
+        </p>
+      </footer>
+    </div>
+    <noscript
+      >请启用 JavaScript 播放演示。<a href="../guide.html">也可以阅读 JevLens 文档。</a></noscript
+    >
+  </body>
+</html>
