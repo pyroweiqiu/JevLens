@@ -109,8 +109,10 @@
         </section>
         <section class="showcase" id="demo-panel" role="tabpanel" aria-labelledby="tab-see">
           <div class="demo-caption">
-            <span><span class="live-dot"></span> 可交互演示</span
-            ><span>点击左侧模式试试看 <span aria-hidden="true">↙</span></span>
+            <button id="restart-demo" type="button" aria-label="重新体验可交互演示">
+              <span class="live-dot"></span> 可交互演示 ↻
+            </button>
+            <span>选模式 → 编辑示例 → 点击 ↑ · 无需 API</span>
           </div>
           <div class="browser-frame">
             <div class="browser-toolbar">
@@ -131,7 +133,7 @@
                   <h3>01 &nbsp; Training a useful model</h3>
                   <p>
                     The web offers more information than we can reasonably read.
-                    <mark class="importance"
+                    <mark class="importance" id="key-passage"
                       >Finding the important passages should feel effortless.</mark
                     >
                   </p>
@@ -143,7 +145,9 @@
                   </p>
                   <h3>02 &nbsp; Results & limitations</h3>
                   <p>
-                    <mark class="importance">Keep the author's original words in view.</mark>
+                    <mark class="importance" id="principle-passage"
+                      >Keep the author's original words in view.</mark
+                    >
                     Context matters as much as the answer itself.
                   </p>
                   <div class="faded-lines" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -189,11 +193,16 @@
                   <div class="result-card">
                     <div><b>01</b><span>KEY IDEA</span></div>
                     <p>Finding the important passages should feel effortless.</p>
-                    <span class="card-jump">原文就在左侧 ↖</span>
+                    <button class="card-jump" type="button" data-passage="key-passage">
+                      定位原文 ↖
+                    </button>
                   </div>
                   <div class="result-card secondary">
                     <div><b>02</b><span>READING PRINCIPLE</span></div>
                     <p>Keep the author's original words in view.</p>
+                    <button class="card-jump" type="button" data-passage="principle-passage">
+                      定位原文 ↖
+                    </button>
                   </div>
                 </div>
                 <div id="find-content" class="mode-content" hidden>
@@ -206,9 +215,11 @@
                       Training requires <strong>eight GPUs</strong> and takes three days to
                       complete.
                     </p>
-                    <span class="card-jump">↖ 已定位相关原文</span>
+                    <button class="card-jump" type="button" data-passage="training-passage">
+                      定位原文 ↖
+                    </button>
                   </div>
-                  <p class="mode-footnote">不是生成一个回答，而是找到依据。</p>
+                  <p class="mode-footnote">本地示例：试试 GPU 或训练时间。</p>
                 </div>
                 <div id="act-content" class="mode-content" hidden>
                   <h3>Where to next?</h3>
@@ -224,10 +235,17 @@
                     先确认目标，再执行这一步。
                   </p>
                 </div>
-                <div class="lens-bottom">
-                  <span id="demo-input">What matters on this page?</span
-                  ><span aria-hidden="true">↑</span>
-                </div>
+                <form class="lens-bottom" id="demo-form">
+                  <input
+                    id="demo-input"
+                    aria-label="本地演示指令"
+                    aria-describedby="experience-note"
+                    autocomplete="off"
+                    maxlength="160"
+                    value="看重点"
+                  />
+                  <button type="submit" aria-label="运行示例">↑</button>
+                </form>
               </aside>
             </div>
           </div>

@@ -129,6 +129,7 @@ summary:focus-visible {
 main {
   display: grid;
   grid-template-columns: minmax(315px, 0.85fr) minmax(0, 1.45fr);
+  grid-template-rows: minmax(0, 1fr);
   gap: clamp(26px, 4.2vw, 74px);
   align-items: center;
   min-height: 0;
@@ -304,7 +305,7 @@ main {
   color: var(--muted);
   gap: 10px;
 }
-.demo-caption > span:first-child {
+.demo-caption > button {
   display: flex;
   align-items: center;
   gap: 9px;
@@ -358,7 +359,9 @@ main {
   height: calc(100% - 38px);
 }
 .sample-document {
-  overflow: hidden;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
   background: #fffefa;
   padding: 25px clamp(16px, 2vw, 32px);
   color: #443b51;
@@ -407,7 +410,8 @@ main {
     sans-serif;
   margin: 19px 0 10px;
 }
-.sample-document p:not([class]) {
+.sample-document p:not([class]),
+.sample-document #training-passage {
   font:
     12px/1.9 Georgia,
     serif;
@@ -537,7 +541,7 @@ main {
   font-size: 8px;
   flex-shrink: 0;
 }
-.lens-bottom > span:last-child {
+.lens-bottom > button {
   background: #6939ee;
   color: #fff;
   padding: 3px 6px;
@@ -805,7 +809,7 @@ dialog .download-button {
   border-radius: 16px;
   transform: rotate(1.5deg);
 }
-.demo-caption > span:first-child {
+.demo-caption > button {
   color: var(--purple);
   font-weight: 650;
 }
@@ -1075,7 +1079,7 @@ body[data-mode='act'] .lens-mode {
     font-size: 0;
   }
   .demo-caption > span:last-child:after {
-    content: '切换上方模式体验';
+    content: '选模式 → 点击 ↑ · 无需 API';
     font-size: 8px;
   }
   .browser-toolbar {
@@ -1122,7 +1126,8 @@ body[data-mode='act'] .lens-mode {
     font-size: 8px;
     margin: 13px 0 8px;
   }
-  .sample-document p:not([class]) {
+  .sample-document p:not([class]),
+  .sample-document #training-passage {
     font-size: 10px;
     line-height: 1.7;
     margin-bottom: 10px;
@@ -1272,7 +1277,8 @@ body[data-mode='act'] .lens-mode {
   .panel-note {
     margin-bottom: 10px;
   }
-  .lens-bottom {
+  .mode-content > h3,
+  .mode-content > .panel-note {
     display: none;
   }
   .mode-footnote {
@@ -1311,4 +1317,75 @@ body[data-mode='act'] .lens-mode {
   flex-shrink: 0;
   position: relative;
   z-index: 1;
+}
+
+/* The preview controls are functional; keep the input visible at every size. */
+.demo-caption > button {
+  font: inherit;
+  border: 1px solid #d4c2f6;
+  border-radius: 20px;
+  padding: 5px 9px;
+  background: #fff;
+}
+.demo-caption > button:hover {
+  background: #e4ff57;
+}
+.lens-panel {
+  min-height: 0;
+}
+.mode-content {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.lens-bottom {
+  margin-top: auto;
+  padding: 6px;
+  gap: 4px;
+}
+.lens-bottom input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 11px;
+  padding: 5px 2px;
+}
+.lens-bottom:focus-within {
+  outline: 2px solid var(--purple);
+  outline-offset: 2px;
+}
+.lens-bottom input:focus {
+  outline: none;
+}
+.lens-bottom > button {
+  border: 0;
+  padding: 6px 9px;
+  flex-shrink: 0;
+}
+.card-jump {
+  background: transparent;
+  border: 0;
+  padding: 3px 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sample-document .located {
+  outline: 2px solid var(--purple);
+  outline-offset: 3px;
+  background: #e4ff57;
+}
+@media (max-width: 760px) {
+  .lens-bottom input {
+    font-size: 10px;
+  }
+  .lens-bottom {
+    padding: 3px;
+  }
+  .lens-bottom > button {
+    padding: 5px 7px;
+  }
 }

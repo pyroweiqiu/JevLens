@@ -46,12 +46,56 @@ try {
     }));
     if (size.width > width || size.height > height)
       throw new Error(`Page overflow at ${width}x${height}: ${JSON.stringify(size)}`);
+    await page.getByRole('button', { name: '重新体验可交互演示' }).click();
+    if (!(await page.getByLabel('本地演示指令').evaluate((el) => el === document.activeElement)))
+      throw new Error('Demo entry should focus the editable input');
+    await page.getByRole('button', { name: '运行示例' }).click();
+    if (!(await page.locator('#key-passage').evaluate((el) => el.classList.contains('located'))))
+      throw new Error('See should locate an original passage');
     await page.getByRole('tab', { name: /Find/ }).click();
     if (!(await page.locator('#find-content').isVisible()))
       throw new Error('Find did not activate');
+    const demoInput = page.getByLabel('本地演示指令');
+    const inputInside = await demoInput.evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const panel = el.closest('.browser-body').getBoundingClientRect();
+      return r.height > 0 && r.top >= panel.top && r.bottom <= panel.bottom;
+    });
+    if (!inputInside) throw new Error(`Demo input clipped at ${width}x${height}`);
+    await demoInput.fill('训练需要几天？');
+    await demoInput.press('Enter');
+    if ((await page.locator('#find-content .query-bubble').textContent()) !== '训练需要几天？')
+      throw new Error('Find should reflect the submitted question');
+    await page.getByRole('button', { name: '定位原文 ↖', exact: true }).click();
+    const passageInside = await page.locator('#training-passage').evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      const panel = el.closest('.sample-document').getBoundingClientRect();
+      return el.classList.contains('located') && r.top >= panel.top && r.bottom <= panel.bottom;
+    });
+    if (!passageInside) throw new Error(`Find passage is not visible at ${width}x${height}`);
+    await demoInput.fill('今日天气');
+    await demoInput.press('Enter');
+    if (await page.locator('.find-result').isVisible())
+      throw new Error('Unsupported query must not retain an unrelated result');
+    await demoInput.fill('');
+    await demoInput.press('Enter');
+    if ((await demoInput.getAttribute('aria-invalid')) !== 'true')
+      throw new Error('Empty input should explain how to run a sample');
+
     await page.getByRole('tab', { name: /Act/ }).click();
     if (await page.locator('#article-appendix').isVisible())
       throw new Error('Act navigated before approval');
+    await demoInput.fill('go to page 10');
+    if (await page.locator('.action-card').isVisible())
+      throw new Error('Editing a command must invalidate the previous action');
+    await demoInput.press('Enter');
+    if (await page.locator('.action-card').isVisible())
+      throw new Error('Unsupported command must not propose an unrelated action');
+    await demoInput.fill('前往附录');
+    await demoInput.press('Enter');
+    if (await page.locator('#article-appendix').isVisible())
+      throw new Error('Submitting an action should still require approval');
+
     const buttonInside = await page.locator('#approve').evaluate((el) => {
       const r = el.getBoundingClientRect();
       const p = el.closest('.browser-body').getBoundingClientRect();
@@ -61,6 +105,10 @@ try {
     await page.locator('#approve').click();
     if (!(await page.locator('#article-appendix').isVisible()))
       throw new Error('Approve did not navigate');
+    await page.getByRole('button', { name: '重新体验可交互演示' }).click();
+    if (await page.locator('#article-appendix').isVisible())
+      throw new Error('Restart should return to the original document');
+
     await page.getByRole('tab', { name: /See/ }).click();
     await page.screenshot({
       animations: 'disabled',
