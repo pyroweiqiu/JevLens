@@ -1,0 +1,962 @@
+[
+  {
+    "id": 1,
+    "url": "https://arxiv.org/abs/2608.18682",
+    "archetype": "arXiv abstract HTML",
+    "focus": "abstract, contribution, metadata links",
+    "challenge": "compact scientific structure",
+    "manual": false
+  },
+  {
+    "id": 2,
+    "url": "https://arxiv.org/pdf/2608.18682",
+    "archetype": "arXiv PDF",
+    "focus": "abstract, method, experiment, conclusion",
+    "challenge": "PDF, equations, multi-column",
+    "manual": false
+  },
+  {
+    "id": 3,
+    "url": "https://arxiv.org/abs/1706.03762",
+    "archetype": "classic arXiv abstract",
+    "focus": "abstract, key contribution",
+    "challenge": "stable baseline",
+    "manual": false
+  },
+  {
+    "id": 4,
+    "url": "https://arxiv.org/pdf/1706.03762",
+    "archetype": "classic paper PDF",
+    "focus": "architecture/results/conclusion",
+    "challenge": "multi-column PDF",
+    "manual": false
+  },
+  {
+    "id": 5,
+    "url": "https://arxiv.org/pdf/2505.16421",
+    "archetype": "agent paper PDF",
+    "focus": "method, environment, results",
+    "challenge": "tables/figures",
+    "manual": false
+  },
+  {
+    "id": 6,
+    "url": "https://arxiv.org/pdf/2605.26579",
+    "archetype": "research PDF",
+    "focus": "method definitions/results",
+    "challenge": "equations + long sections",
+    "manual": false
+  },
+  {
+    "id": 7,
+    "url": "https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html",
+    "archetype": "conference proceedings",
+    "focus": "abstract, paper links, bibliographic info",
+    "challenge": "structured page",
+    "manual": false
+  },
+  {
+    "id": 8,
+    "url": "https://www.sciencedirect.com/science/article/pii/S0004370221000862",
+    "archetype": "journal article page",
+    "focus": "abstract, highlights, conclusions",
+    "challenge": "complex journal chrome/paywall variants",
+    "manual": false
+  },
+  {
+    "id": 9,
+    "url": "https://typesafe.ai/blog/introducing-system-one-models-and-jev",
+    "archetype": "long launch blog",
+    "focus": "Jev definition, RLCD, performance, use cases",
+    "challenge": "rich marketing + technical content",
+    "manual": false
+  },
+  {
+    "id": 10,
+    "url": "https://openreview.net/forum?id=MYqAKKsjF9",
+    "archetype": "review/forum paper",
+    "focus": "abstract, reviews/decision when visible",
+    "challenge": "repeated comments / nested threads",
+    "manual": false
+  },
+  {
+    "id": 11,
+    "url": "https://tongyi-mai.github.io/Qwen-UI-Agent/",
+    "archetype": "project page",
+    "focus": "method, benchmarks, resources",
+    "challenge": "image-heavy project layout",
+    "manual": false
+  },
+  {
+    "id": 12,
+    "url": "https://mostik.ai/read-more",
+    "archetype": "technical/company article",
+    "focus": "technical thesis, key claims",
+    "challenge": "custom design",
+    "manual": false
+  },
+  {
+    "id": 13,
+    "url": "https://yifanzhang-pro.github.io/FlashREINFORCE/",
+    "archetype": "research project page",
+    "focus": "core method, results, ablations",
+    "challenge": "equations/images",
+    "manual": false
+  },
+  {
+    "id": 14,
+    "url": "https://yifanzhang-pro.github.io/recurrent-looped-tranformer/",
+    "archetype": "research project page",
+    "focus": "architecture, claims, experiments",
+    "challenge": "custom project page",
+    "manual": false
+  },
+  {
+    "id": 15,
+    "url": "https://contrastive-lm.notion.site/",
+    "archetype": "Notion-published technical page",
+    "focus": "architecture/training/inference",
+    "challenge": "Notion DOM/dynamic rendering",
+    "manual": false
+  },
+  {
+    "id": 16,
+    "url": "https://github.com/NandhaKishorM/laya",
+    "archetype": "repository landing page",
+    "focus": "README overview/install/usage",
+    "challenge": "GitHub page chrome",
+    "manual": false
+  },
+  {
+    "id": 17,
+    "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide",
+    "archetype": "docs index/article",
+    "focus": "definitions/examples/warnings",
+    "challenge": "dense sidebar/navigation",
+    "manual": false
+  },
+  {
+    "id": 18,
+    "url": "https://docs.python.org/3/tutorial/index.html",
+    "archetype": "classic docs",
+    "focus": "tutorial structure/key instructions",
+    "challenge": "nested TOC",
+    "manual": false
+  },
+  {
+    "id": 19,
+    "url": "https://docs.pytorch.org/docs/main/fsdp.html",
+    "archetype": "API docs",
+    "focus": "signatures, warnings, usage",
+    "challenge": "long API reference/code",
+    "manual": false
+  },
+  {
+    "id": 20,
+    "url": "https://kubernetes.io/docs/concepts/workloads/controllers/deployment/",
+    "archetype": "technical guide",
+    "focus": "deployment behavior/config/examples",
+    "challenge": "huge docs navigation",
+    "manual": false
+  },
+  {
+    "id": 21,
+    "url": "https://cloud.google.com/iam/docs",
+    "archetype": "cloud docs",
+    "focus": "key concepts/instructions",
+    "challenge": "dynamic docs chrome",
+    "manual": false
+  },
+  {
+    "id": 22,
+    "url": "https://developer.apple.com/documentation/swiftui/navigationstack",
+    "archetype": "API docs",
+    "focus": "definition, key API behavior",
+    "challenge": "client-rendered docs",
+    "manual": false
+  },
+  {
+    "id": 23,
+    "url": "https://nextjs.org/docs/app",
+    "archetype": "framework docs",
+    "focus": "concepts/links/getting started",
+    "challenge": "SPA navigation",
+    "manual": false
+  },
+  {
+    "id": 24,
+    "url": "https://doc.rust-lang.org/book/ch04-00-understanding-ownership.html",
+    "archetype": "online book",
+    "focus": "definitions/rules/examples",
+    "challenge": "prose + code",
+    "manual": false
+  },
+  {
+    "id": 25,
+    "url": "https://github.com/browser-use/browser-use",
+    "archetype": "GitHub repo",
+    "focus": "README overview/install/examples",
+    "challenge": "many action buttons",
+    "manual": false
+  },
+  {
+    "id": 26,
+    "url": "https://github.com/browser-use/browser-use/issues",
+    "archetype": "issue list",
+    "focus": "issue titles/status/labels",
+    "challenge": "list-style content",
+    "manual": false
+  },
+  {
+    "id": 27,
+    "url": "https://github.com/browser-use/browser-use/pulls",
+    "archetype": "PR list",
+    "focus": "PR titles/status",
+    "challenge": "dynamic list",
+    "manual": false
+  },
+  {
+    "id": 28,
+    "url": "https://github.com/browser-use/browser-use/blob/main/README.md",
+    "archetype": "file viewer",
+    "focus": "rendered README substantive sections",
+    "challenge": "duplicate raw/rendered regions",
+    "manual": false
+  },
+  {
+    "id": 29,
+    "url": "https://stackoverflow.com/questions/43638938/updating-an-object-with-setstate-in-react",
+    "archetype": "Q&A",
+    "focus": "question + accepted/high-score answer",
+    "challenge": "ads, related links, comments",
+    "manual": false
+  },
+  {
+    "id": 30,
+    "url": "https://news.ycombinator.com/",
+    "archetype": "discussion/news list",
+    "focus": "story titles/points/comments depending page",
+    "challenge": "dense uniform list",
+    "manual": false
+  },
+  {
+    "id": 31,
+    "url": "https://www.reddit.com/r/MachineLearning/",
+    "archetype": "community feed",
+    "focus": "post title/body; ignore nav/recommendations",
+    "challenge": "infinite scroll/login prompts",
+    "manual": false
+  },
+  {
+    "id": 32,
+    "url": "https://huggingface.co/Qwen/Qwen2.5-VL-3B-Instruct",
+    "archetype": "model card",
+    "focus": "model description, usage, limitations",
+    "challenge": "tabs, code, model metadata",
+    "manual": false
+  },
+  {
+    "id": 33,
+    "url": "https://openai.com/index/",
+    "archetype": "company article index",
+    "focus": "article title/lead content",
+    "challenge": "dynamic marketing site",
+    "manual": false
+  },
+  {
+    "id": 34,
+    "url": "https://www.anthropic.com/research",
+    "archetype": "research listing",
+    "focus": "research summaries and key links",
+    "challenge": "card layout",
+    "manual": false
+  },
+  {
+    "id": 35,
+    "url": "https://vercel.com/blog",
+    "archetype": "blog index/article",
+    "focus": "article content, key technical claims",
+    "challenge": "React/Next rendering",
+    "manual": false
+  },
+  {
+    "id": 36,
+    "url": "https://pytorch.org/blog/",
+    "archetype": "technical blog",
+    "focus": "main technical content",
+    "challenge": "code/images",
+    "manual": false
+  },
+  {
+    "id": 37,
+    "url": "https://blog.cloudflare.com/",
+    "archetype": "engineering blog",
+    "focus": "thesis, incident detail, technical findings",
+    "challenge": "long rich posts",
+    "manual": false
+  },
+  {
+    "id": 38,
+    "url": "https://netflixtechblog.com/",
+    "archetype": "publication/blog",
+    "focus": "article body/key findings",
+    "challenge": "Medium-style layout",
+    "manual": false
+  },
+  {
+    "id": 39,
+    "url": "https://engineering.atspotify.com/",
+    "archetype": "engineering blog",
+    "focus": "system/method/results",
+    "challenge": "cards + articles",
+    "manual": false
+  },
+  {
+    "id": 40,
+    "url": "https://slack.engineering/",
+    "archetype": "engineering blog",
+    "focus": "architecture/key lessons",
+    "challenge": "WordPress-style content",
+    "manual": false
+  },
+  {
+    "id": 41,
+    "url": "https://www.reuters.com/technology/",
+    "archetype": "news index/article",
+    "focus": "lede, verified facts, key quotes",
+    "challenge": "dynamic page / consent",
+    "manual": false
+  },
+  {
+    "id": 42,
+    "url": "https://www.theguardian.com/technology/artificialintelligenceai",
+    "archetype": "topic/news",
+    "focus": "headline/lede/article body",
+    "challenge": "ads/related modules",
+    "manual": false
+  },
+  {
+    "id": 43,
+    "url": "https://www.theverge.com/ai-artificial-intelligence",
+    "archetype": "tech news",
+    "focus": "headline, lede, key details",
+    "challenge": "rich media",
+    "manual": false
+  },
+  {
+    "id": 44,
+    "url": "https://techcrunch.com/category/artificial-intelligence/",
+    "archetype": "tech news",
+    "focus": "article key claims",
+    "challenge": "ads + cards",
+    "manual": false
+  },
+  {
+    "id": 45,
+    "url": "https://www.wired.com/tag/artificial-intelligence/",
+    "archetype": "magazine/news",
+    "focus": "article main content",
+    "challenge": "paywall variants",
+    "manual": false
+  },
+  {
+    "id": 46,
+    "url": "https://arstechnica.com/ai/",
+    "archetype": "tech news",
+    "focus": "technical facts/conclusions",
+    "challenge": "long article pages",
+    "manual": false
+  },
+  {
+    "id": 47,
+    "url": "https://apnews.com/hub/artificial-intelligence",
+    "archetype": "news hub",
+    "focus": "factual lede/body",
+    "challenge": "dynamic widgets",
+    "manual": false
+  },
+  {
+    "id": 48,
+    "url": "https://www.aljazeera.com/tag/artificial-intelligence/",
+    "archetype": "news hub/article",
+    "focus": "lede/facts/quotes",
+    "challenge": "video/related modules",
+    "manual": false
+  },
+  {
+    "id": 49,
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689/oj",
+    "archetype": "EU regulation",
+    "focus": "operative requirements/definitions/articles",
+    "challenge": "very long legal text",
+    "manual": false
+  },
+  {
+    "id": 50,
+    "url": "https://www.gov.uk/government/publications/ai-playbook-for-the-uk-government",
+    "archetype": "government guidance",
+    "focus": "obligations/recommendations",
+    "challenge": "publication metadata",
+    "manual": false
+  },
+  {
+    "id": 51,
+    "url": "https://www.smartnation.gov.sg/initiatives/artificial-intelligence/",
+    "archetype": "government strategy",
+    "focus": "goals/programs/key policy",
+    "challenge": "government CMS",
+    "manual": false
+  },
+  {
+    "id": 52,
+    "url": "https://www.imda.gov.sg/activities/activities-catalogue/artificial-intelligence",
+    "archetype": "regulator/AI",
+    "focus": "frameworks/resources",
+    "challenge": "multi-card page",
+    "manual": false
+  },
+  {
+    "id": 53,
+    "url": "https://www.sec.gov/edgar/browse/?CIK=320193",
+    "archetype": "SEC filing index",
+    "focus": "filing type/date/doc links",
+    "challenge": "dense table",
+    "manual": false
+  },
+  {
+    "id": 54,
+    "url": "https://www.irs.gov/instructions",
+    "archetype": "tax instruction index",
+    "focus": "instruction name/critical notices",
+    "challenge": "huge indexed lists",
+    "manual": false
+  },
+  {
+    "id": 55,
+    "url": "https://www.who.int/publications",
+    "archetype": "public-health publications",
+    "focus": "title/summary/key metadata",
+    "challenge": "search/filter UI",
+    "manual": false
+  },
+  {
+    "id": 56,
+    "url": "https://www.nhtsa.gov/vehicle-safety/automated-vehicles-safety",
+    "archetype": "government safety page",
+    "focus": "definitions/safety principles",
+    "challenge": "long public info page",
+    "manual": false
+  },
+  {
+    "id": 57,
+    "url": "https://ocw.mit.edu/courses/18-06sc-linear-algebra-fall-2011/",
+    "archetype": "online course",
+    "focus": "learning goals/material links",
+    "challenge": "many navigation links",
+    "manual": false
+  },
+  {
+    "id": 58,
+    "url": "https://www.khanacademy.org/math/calculus-1",
+    "archetype": "interactive course",
+    "focus": "lesson titles/key explanations where visible",
+    "challenge": "client-side app/login",
+    "manual": false
+  },
+  {
+    "id": 59,
+    "url": "https://www.coursera.org/learn/machine-learning",
+    "archetype": "course landing",
+    "focus": "syllabus/outcomes/requirements",
+    "challenge": "marketing + structured sections",
+    "manual": false
+  },
+  {
+    "id": 60,
+    "url": "https://www.edx.org/learn/computer-science/harvard-university-cs50-s-introduction-to-computer-science",
+    "archetype": "course landing",
+    "focus": "curriculum/outcomes",
+    "challenge": "marketing sections",
+    "manual": false
+  },
+  {
+    "id": 61,
+    "url": "https://cs229.stanford.edu/",
+    "archetype": "course site",
+    "focus": "schedule/materials/announcements",
+    "challenge": "tables/lists",
+    "manual": false
+  },
+  {
+    "id": 62,
+    "url": "https://rail.eecs.berkeley.edu/deeprlcourse/",
+    "archetype": "course site",
+    "focus": "lectures/assignments/resources",
+    "challenge": "simple academic HTML",
+    "manual": false
+  },
+  {
+    "id": 63,
+    "url": "https://www.3blue1brown.com/topics/linear-algebra",
+    "archetype": "visual learning site",
+    "focus": "topic summaries/key links",
+    "challenge": "rich media/card layout",
+    "manual": false
+  },
+  {
+    "id": 64,
+    "url": "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)",
+    "archetype": "encyclopedia",
+    "focus": "definition, architecture/history",
+    "challenge": "citations/infobox/TOC",
+    "manual": false
+  },
+  {
+    "id": 65,
+    "url": "https://www.apple.com/sg/shop/buy-iphone",
+    "archetype": "product configurator",
+    "focus": "model differences/price/critical options",
+    "challenge": "interactive configurator",
+    "manual": false
+  },
+  {
+    "id": 66,
+    "url": "https://www.amazon.com/s?k=mechanical+keyboard",
+    "archetype": "search results",
+    "focus": "product title/price/rating; avoid sponsored chrome",
+    "challenge": "highly dynamic / personalization",
+    "manual": false
+  },
+  {
+    "id": 67,
+    "url": "https://www.ikea.com/us/en/search/?q=office%20chair",
+    "archetype": "retail search",
+    "focus": "product title/price/key attributes",
+    "challenge": "card grid/infinite loading",
+    "manual": false
+  },
+  {
+    "id": 68,
+    "url": "https://www.bestbuy.com/site/searchpage.jsp?st=laptop",
+    "archetype": "retail search",
+    "focus": "price/spec/availability",
+    "challenge": "ads/cards",
+    "manual": false
+  },
+  {
+    "id": 69,
+    "url": "https://www.ebay.com/sch/i.html?_nkw=mechanical+keyboard",
+    "archetype": "marketplace search",
+    "focus": "listing title/price/shipping",
+    "challenge": "repeated listings",
+    "manual": false
+  },
+  {
+    "id": 70,
+    "url": "https://www.etsy.com/search?q=desk%20mat",
+    "archetype": "marketplace search",
+    "focus": "listing title/price/rating",
+    "challenge": "lazy loading",
+    "manual": false
+  },
+  {
+    "id": 71,
+    "url": "https://store.steampowered.com/app/730/CounterStrike_2/",
+    "archetype": "game product page",
+    "focus": "description/requirements/reviews",
+    "challenge": "age/region modals",
+    "manual": false
+  },
+  {
+    "id": 72,
+    "url": "https://www.sephora.com/search?keyword=sunscreen",
+    "archetype": "retail search",
+    "focus": "product attributes/rating",
+    "challenge": "client-rendered cards",
+    "manual": false
+  },
+  {
+    "id": 73,
+    "url": "https://finance.yahoo.com/quote/AAPL/",
+    "archetype": "market quote",
+    "focus": "price/key company stats/news labels",
+    "challenge": "rapidly updating DOM",
+    "manual": false
+  },
+  {
+    "id": 74,
+    "url": "https://www.google.com/finance/quote/AAPL:NASDAQ",
+    "archetype": "market quote",
+    "focus": "price/change/key metrics",
+    "challenge": "dynamic app",
+    "manual": false
+  },
+  {
+    "id": 75,
+    "url": "https://www.coinbase.com/price/bitcoin",
+    "archetype": "crypto price page",
+    "focus": "price/market stats/description",
+    "challenge": "live updates",
+    "manual": false
+  },
+  {
+    "id": 76,
+    "url": "https://stripe.com/pricing",
+    "archetype": "SaaS pricing",
+    "focus": "fee numbers/conditions",
+    "challenge": "marketing sections",
+    "manual": false
+  },
+  {
+    "id": 77,
+    "url": "https://aws.amazon.com/ec2/pricing/",
+    "archetype": "cloud pricing",
+    "focus": "pricing models/caveats",
+    "challenge": "very long mixed content",
+    "manual": false
+  },
+  {
+    "id": 78,
+    "url": "https://openai.com/api/pricing/",
+    "archetype": "API pricing",
+    "focus": "model prices/key constraints",
+    "challenge": "tables/cards",
+    "manual": false
+  },
+  {
+    "id": 79,
+    "url": "https://investor.apple.com/investor-relations/default.aspx",
+    "archetype": "investor relations",
+    "focus": "earnings/releases/filings links",
+    "challenge": "enterprise CMS",
+    "manual": false
+  },
+  {
+    "id": 80,
+    "url": "https://www.macrotrends.net/stocks/charts/AAPL/apple/revenue",
+    "archetype": "financial data page",
+    "focus": "chart labels/historical values",
+    "challenge": "chart-heavy/ads",
+    "manual": false
+  },
+  {
+    "id": 81,
+    "url": "https://www.booking.com/searchresults.html?ss=Singapore",
+    "archetype": "hotel search",
+    "focus": "hotel name/price/rating/cancellation",
+    "challenge": "dynamic personalized search",
+    "manual": false
+  },
+  {
+    "id": 82,
+    "url": "https://www.tripadvisor.com/Hotels-g294265-Singapore-Hotels.html",
+    "archetype": "travel listing",
+    "focus": "rating/location/price signals",
+    "challenge": "heavy cards/ads",
+    "manual": false
+  },
+  {
+    "id": 83,
+    "url": "https://www.airbnb.com/s/Singapore/homes",
+    "archetype": "accommodation search",
+    "focus": "title/price/rating",
+    "challenge": "map + infinite cards",
+    "manual": false
+  },
+  {
+    "id": 84,
+    "url": "https://www.expedia.com/Hotel-Search?destination=Singapore",
+    "archetype": "travel search",
+    "focus": "price/rating/fees",
+    "challenge": "dynamic filters",
+    "manual": false
+  },
+  {
+    "id": 85,
+    "url": "https://www.skyscanner.com/transport/flights/sins/tyoa/",
+    "archetype": "flight search",
+    "focus": "route/price/duration/stops",
+    "challenge": "dynamic application",
+    "manual": false
+  },
+  {
+    "id": 86,
+    "url": "https://www.singaporeair.com/en_UK/sg/home",
+    "archetype": "airline site",
+    "focus": "booking fields/travel notices",
+    "challenge": "forms + marketing",
+    "manual": false
+  },
+  {
+    "id": 87,
+    "url": "https://www.google.com/maps/search/restaurants+Singapore",
+    "archetype": "map application",
+    "focus": "place names/ratings where DOM-accessible",
+    "challenge": "canvas/map-heavy partial support",
+    "manual": false
+  },
+  {
+    "id": 88,
+    "url": "https://www.rome2rio.com/map/Singapore/Kuala-Lumpur",
+    "archetype": "route comparison",
+    "focus": "transport modes/time/cost",
+    "challenge": "dynamic route cards",
+    "manual": false
+  },
+  {
+    "id": 89,
+    "url": "https://en.wikipedia.org/wiki/Deep_learning",
+    "archetype": "encyclopedia",
+    "focus": "definition/key concepts/history",
+    "challenge": "huge article",
+    "manual": false
+  },
+  {
+    "id": 90,
+    "url": "https://www.britannica.com/technology/artificial-intelligence",
+    "archetype": "reference article",
+    "focus": "definition/key historical facts",
+    "challenge": "subscription/ads variants",
+    "manual": false
+  },
+  {
+    "id": 91,
+    "url": "https://www.rfc-editor.org/rfc/rfc9110.html",
+    "archetype": "technical standard",
+    "focus": "normative requirements/definitions",
+    "challenge": "very long structured document",
+    "manual": false
+  },
+  {
+    "id": 92,
+    "url": "https://html.spec.whatwg.org/",
+    "archetype": "living standard",
+    "focus": "normative text/definitions",
+    "challenge": "enormous single page",
+    "manual": false
+  },
+  {
+    "id": 93,
+    "url": "https://tc39.es/ecma262/",
+    "archetype": "language specification",
+    "focus": "algorithms/definitions",
+    "challenge": "huge spec, custom structure",
+    "manual": false
+  },
+  {
+    "id": 94,
+    "url": "https://www.law.cornell.edu/constitution",
+    "archetype": "legal reference",
+    "focus": "clauses/articles/amendments",
+    "challenge": "legal hierarchy",
+    "manual": false
+  },
+  {
+    "id": 95,
+    "url": "https://developer.mozilla.org/en-US/docs/Web/API/CSS_Custom_Highlight_API",
+    "archetype": "API reference",
+    "focus": "concept/steps/compatibility",
+    "challenge": "code + prose",
+    "manual": false
+  },
+  {
+    "id": 96,
+    "url": "https://owasp.org/www-project-top-ten/",
+    "archetype": "security reference",
+    "focus": "risks/descriptions/mitigations",
+    "challenge": "cards + docs links",
+    "manual": false
+  },
+  {
+    "id": 97,
+    "url": "https://medium.com/tag/artificial-intelligence",
+    "archetype": "publishing feed",
+    "focus": "story titles/excerpts",
+    "challenge": "infinite feed/login prompts",
+    "manual": false
+  },
+  {
+    "id": 98,
+    "url": "https://substack.com/home",
+    "archetype": "publishing feed",
+    "focus": "post titles/excerpts",
+    "challenge": "personalized/auth variants",
+    "manual": true
+  },
+  {
+    "id": 99,
+    "url": "https://www.notion.com/blog",
+    "archetype": "company publishing",
+    "focus": "article title/lede/key claims",
+    "challenge": "dynamic layout",
+    "manual": false
+  },
+  {
+    "id": 100,
+    "url": "https://www.youtube.com/watch?v=aircAruvnKk",
+    "archetype": "video page",
+    "focus": "title/description/transcript only if DOM-visible",
+    "challenge": "video UI/dynamic comments",
+    "manual": false
+  },
+  {
+    "id": 101,
+    "url": "https://dev.to/t/artificialintelligence",
+    "archetype": "developer feed",
+    "focus": "post title/excerpt/metadata",
+    "challenge": "feed layout",
+    "manual": false
+  },
+  {
+    "id": 102,
+    "url": "https://hashnode.com/n/artificial-intelligence",
+    "archetype": "developer feed",
+    "focus": "post title/excerpt",
+    "challenge": "client-side feed",
+    "manual": false
+  },
+  {
+    "id": 103,
+    "url": "https://www.producthunt.com/topics/artificial-intelligence",
+    "archetype": "product directory",
+    "focus": "product name/tagline/description",
+    "challenge": "dense cards/login",
+    "manual": false
+  },
+  {
+    "id": 104,
+    "url": "https://x.com/OpenAI",
+    "archetype": "social profile/feed",
+    "focus": "post text only if visible",
+    "challenge": "login wall/infinite dynamic feed",
+    "manual": true
+  },
+  {
+    "id": 105,
+    "url": "https://arxiv.org/pdf/1706.03762",
+    "archetype": "academic PDF",
+    "focus": "core architecture/results",
+    "challenge": "two-column + equations",
+    "manual": false
+  },
+  {
+    "id": 106,
+    "url": "https://arxiv.org/pdf/2608.18682",
+    "archetype": "academic PDF",
+    "focus": "method/experiments",
+    "challenge": "modern arXiv PDF",
+    "manual": false
+  },
+  {
+    "id": 107,
+    "url": "https://cdn.who.int/media/docs/default-source/digital-health-documents/who_brochure_ai_web.pdf",
+    "archetype": "brochure/report PDF",
+    "focus": "key guidance/headings",
+    "challenge": "graphic layout",
+    "manual": false
+  },
+  {
+    "id": 108,
+    "url": "https://www.nhtsa.gov/sites/nhtsa.gov/files/2023-06/Automated-Vehicles-Report-to-Congress-06302023.pdf",
+    "archetype": "government report PDF",
+    "focus": "conclusions/recommendations",
+    "challenge": "long report/tables",
+    "manual": false
+  },
+  {
+    "id": 109,
+    "url": "https://www.imda.gov.sg/-/media/imda/files/programme/ai-data-innovation/model-ai-governance-framework---first-edition.pdf",
+    "archetype": "policy PDF",
+    "focus": "principles/requirements",
+    "challenge": "multi-section report",
+    "manual": false
+  },
+  {
+    "id": 110,
+    "url": "https://cs229.stanford.edu/main_notes.pdf",
+    "archetype": "course notes PDF",
+    "focus": "definitions/theorems/key derivations",
+    "challenge": "long technical notes",
+    "manual": false
+  },
+  {
+    "id": 111,
+    "url": "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf",
+    "archetype": "government instruction PDF",
+    "focus": "deadlines/rules/warnings",
+    "challenge": "long complex forms guidance",
+    "manual": false
+  },
+  {
+    "id": 112,
+    "url": "https://tongyi-mai.github.io/Qwen-UI-Agent/Qwen-UI-Agent-Technical-Report.pdf",
+    "archetype": "technical report PDF",
+    "focus": "model/training/benchmarks",
+    "challenge": "paper-style PDF",
+    "manual": false
+  },
+  {
+    "id": 113,
+    "url": "https://react.dev/learn",
+    "archetype": "React SPA docs",
+    "focus": "highlight article; update after client navigation",
+    "challenge": "SPA route changes",
+    "manual": false
+  },
+  {
+    "id": 114,
+    "url": "https://mail.google.com/",
+    "archetype": "authenticated web app",
+    "focus": "privacy-first: disable remote Highlight by default or explicit opt-in",
+    "challenge": "sensitive/private content",
+    "manual": true
+  },
+  {
+    "id": 115,
+    "url": "https://docs.google.com/document/d/*",
+    "archetype": "editor app",
+    "focus": "detect unsupported/contenteditable mode; avoid sending drafts",
+    "challenge": "canvas/contenteditable/editor internals",
+    "manual": true
+  },
+  {
+    "id": 116,
+    "url": "https://www.figma.com/*",
+    "archetype": "canvas-heavy app",
+    "focus": "show graceful limited-support state; Cursor may use accessible DOM only",
+    "challenge": "canvas/WebGL",
+    "manual": true
+  },
+  {
+    "id": 117,
+    "url": "https://www.youtube.com/watch?v=*",
+    "archetype": "complex media app",
+    "focus": "analyze DOM-visible description/transcript; ignore player canvas/video",
+    "challenge": "SPA + dynamic comments",
+    "manual": true
+  },
+  {
+    "id": 118,
+    "url": "https://www.reddit.com/*",
+    "archetype": "infinite feed/thread",
+    "focus": "progressive viewport scoring",
+    "challenge": "mutations/infinite scrolling",
+    "manual": true
+  },
+  {
+    "id": 119,
+    "url": "https://www.ft.com/*",
+    "archetype": "paywalled news",
+    "focus": "analyze only legitimately visible DOM; never bypass paywall",
+    "challenge": "paywall/consent",
+    "manual": true
+  },
+  {
+    "id": 120,
+    "url": "file://*.pdf",
+    "archetype": "local PDF",
+    "focus": "supported only through explicit user permission / modern MIME path; never upload silently",
+    "challenge": "local-file privacy/permissions",
+    "manual": true
+  }
+]

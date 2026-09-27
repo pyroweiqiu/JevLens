@@ -1,0 +1,8 @@
+node_modules
+output
+.wxt
+qa-results
+test-results
+package-lock.json
+jev_web_lens_implementation_plan.md
+AGENTS.md

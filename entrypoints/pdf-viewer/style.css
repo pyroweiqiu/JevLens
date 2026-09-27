@@ -1,0 +1,92 @@
+@import 'pdfjs-dist/web/pdf_viewer.css';
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #e9ece4;
+  font:
+    13px -apple-system,
+    BlinkMacSystemFont,
+    sans-serif;
+  color: #344c36;
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  padding: 15px 24px;
+  background: #f8f9f4;
+  border-bottom: 1px solid #d9e0d0;
+}
+header strong {
+  font-size: 21px;
+  letter-spacing: -0.7px;
+  margin-right: auto;
+}
+header strong span {
+  font-weight: 400;
+}
+button,
+.file-label {
+  border: 1px solid #c3d0b5;
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #42623b;
+  background: #fff;
+  cursor: pointer;
+}
+input[type='file'] {
+  display: none;
+}
+#status {
+  text-align: center;
+  padding: 17px;
+  color: #859475;
+  font-size: 12px;
+}
+#pages {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 24px;
+  padding: 0 24px 40px;
+}
+.pdf-page {
+  position: relative;
+  background: white;
+  box-shadow: 0 3px 14px #20301418;
+  flex-shrink: 0;
+}
+.pdf-page canvas {
+  display: block;
+}
+.textLayer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 1;
+  line-height: 1;
+  text-align: initial;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  z-index: 2;
+}
+.textLayer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0 0;
+}
+.textLayer ::selection {
+  background: #86b7dd77;
+}
+/* Keep the canvas glyphs crisp while highlighting the transparent text layer. */
+.textLayer {
+  mix-blend-mode: multiply;
+}

@@ -1,0 +1,49 @@
+{
+  "name": "jev-web-lens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wxt",
+    "build": "wxt build",
+    "zip": "wxt zip",
+    "postinstall": "wxt prepare",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "proxy": "node --env-file-if-exists=.env.local server/index.mjs",
+    "qa:live": "node scripts/live-smoke.mjs",
+    "qa:matrix": "node scripts/regression.mjs",
+    "check": "npm run lint && npm run typecheck && npm test && npm run build",
+    "demo": "node scripts/demo.mjs",
+    "format": "prettier --write docs entrypoints src server scripts tests *.ts *.json README.md",
+    "lint": "prettier --check docs entrypoints src server scripts tests *.ts *.json README.md",
+    "site:preview": "node scripts/site-preview.mjs",
+    "site:check": "node scripts/site-check.mjs",
+    "audit:public": "node scripts/check-publication.mjs"
+  },
+  "dependencies": {
+    "idb": "^8.0.0",
+    "lucide-react": "^0.468.0",
+    "pdfjs-dist": "^6.2.108",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/chrome": "^0.1.0",
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@wxt-dev/module-react": "^1.1.0",
+    "jsdom": "^26.1.0",
+    "prettier": "^3.9.9",
+    "typescript": "^5.9.0",
+    "vitest": "^5.0.2",
+    "wxt": "^0.21.4"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

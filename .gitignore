@@ -1,0 +1,24 @@
+node_modules/
+output/
+.wxt/
+.env*
+!.env.example
+test-results/
+playwright-report/
+qa-results/
+.DS_Store
+
+# Local credentials (including alternate spellings).
+/conf/*keys*
+
+# Never publish local credentials, nested checkouts, editor state, or private key material.
+/conf/
+/third_party/
+/.vscode/
+/.idea/
+*.pem
+*.key
+*.keys
+*.p12
+*.pfx
+*.log

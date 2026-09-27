@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Jev PDF Lens</title>
+  </head>
+  <body>
+    <header data-jev-ui>
+      <strong>◉ jev <span>pdf lens</span></strong
+      ><label class="file-label"
+        >Open local PDF<input id="file" type="file" accept="application/pdf" /></label
+      ><button id="lens">Open Lens</button>
+    </header>
+    <div id="status" data-jev-ui>Choose a PDF to start. Local files stay local in Demo mode.</div>
+    <main id="pages"></main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f6ee" />
+    <meta
+      name="description"
+      content="JevLens 把长网页和 PDF 变成可探索的阅读空间：看重点、找原文、按意图导航。体验 See → Find → Act。"
+    />
+    <title>JevLens — 让注意力，回到重要的地方。</title>
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./demo.js" defer></script>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="./" aria-label="JevLens 首页"
+          ><img src="./icon.svg" width="33" height="33" alt="" /><span
+            >jev<span class="brand-light">lens</span></span
+          ></a
+        >
+        <span class="header-caption">A LITTLE CLARITY FOR THE WEB</span>
+        <a
+          class="source-link"
+          href="https://github.com/pyroweiqiu/JevLens"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub <span aria-hidden="true">↗</span></a
+        >
+      </header>
+      <main>
+        <section class="intro" aria-labelledby="headline">
+          <div class="intro-copy">
+            <p class="eyebrow">
+              <span class="live-dot"></span> YOUR BROWSER. A CLEARER PERSPECTIVE.
+            </p>
+            <h1 id="headline">让注意力，<br />回到<span>重要的地方</span>。</h1>
+            <p class="lede">
+              网页再长，也能找到方向。<br />用 JevLens 看重点、找原文，再走向下一步。
+            </p>
+            <div class="cta-row">
+              <button class="install-button" id="install">
+                开始使用 <span aria-hidden="true">↗</span></button
+              ><a
+                href="https://github.com/pyroweiqiu/JevLens"
+                target="_blank"
+                rel="noopener noreferrer"
+                >查看源码 <span aria-hidden="true">↗</span></a
+              >
+            </div>
+            <p class="compatibility">
+              Chrome 扩展 <span>·</span> 网页 + PDF <span>·</span> Powered by Jev
+            </p>
+          </div>
+          <div class="mode-picker" role="tablist" aria-label="体验 JevLens 功能">
+            <button
+              id="tab-see"
+              role="tab"
+              aria-selected="true"
+              aria-controls="demo-panel"
+              data-mode="see"
+            >
+              <span class="mode-index">01</span
+              ><span class="mode-copy"
+                ><b>See <small>看见重点</small></b
+                ><span>让值得读的句子，自己浮现。</span></span
+              ><span class="mode-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button
+              id="tab-find"
+              role="tab"
+              aria-selected="false"
+              aria-controls="demo-panel"
+              tabindex="-1"
+              data-mode="find"
+            >
+              <span class="mode-index">02</span
+              ><span class="mode-copy"
+                ><b>Find <small>找到原文</small></b
+                ><span>带着问题，直接走到答案旁。</span></span
+              ><span class="mode-arrow" aria-hidden="true">↗</span>
+            </button>
+            <button
+              id="tab-act"
+              role="tab"
+              aria-selected="false"
+              aria-controls="demo-panel"
+              tabindex="-1"
+              data-mode="act"
+            >
+              <span class="mode-index">03</span
+              ><span class="mode-copy"
+                ><b>Act <small>走向下一步</small></b
+                ><span>按章节导航，确认后再行动。</span></span
+              ><span class="mode-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+        </section>
+        <section class="showcase" id="demo-panel" role="tabpanel" aria-labelledby="tab-see">
+          <div class="demo-caption">
+            <span><span class="live-dot"></span> 可交互演示</span
+            ><span>点击左侧模式试试看 <span aria-hidden="true">↙</span></span>
+          </div>
+          <div class="browser-frame">
+            <div class="browser-toolbar">
+              <div class="traffic-lights" aria-hidden="true"><i></i><i></i><i></i></div>
+              <span class="address">▧ &nbsp; reading-notes / a-field-guide.pdf</span
+              ><span class="toolbar-icon" aria-hidden="true">◧</span>
+            </div>
+            <div class="browser-body">
+              <article class="sample-document" aria-label="示例文档">
+                <div class="document-meta">
+                  <span>FIELD NOTES / 001</span><span id="page-number">01 / 30</span>
+                </div>
+                <div id="article-main">
+                  <p class="document-category">ON LEARNING & ATTENTION</p>
+                  <h2>A field guide to<br />focused reading.</h2>
+                  <p class="document-deck">Good reading starts with knowing<br />where to look.</p>
+                  <div class="document-rule"></div>
+                  <h3>01 &nbsp; Training a useful model</h3>
+                  <p>
+                    The web offers more information than we can reasonably read.
+                    <mark class="importance"
+                      >Finding the important passages should feel effortless.</mark
+                    >
+                  </p>
+                  <p id="training-passage">
+                    <mark class="training"
+                      >Training requires eight GPUs and takes three days to complete.</mark
+                    >
+                    The experiment uses a held-out evaluation set.
+                  </p>
+                  <h3>02 &nbsp; Results & limitations</h3>
+                  <p>
+                    <mark class="importance">Keep the author's original words in view.</mark>
+                    Context matters as much as the answer itself.
+                  </p>
+                  <div class="faded-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+                </div>
+                <div id="article-appendix" hidden>
+                  <p class="document-category">SUPPLEMENTARY NOTES</p>
+                  <h2>Appendix.</h2>
+                  <p class="document-deck">A. Training details</p>
+                  <div class="document-rule"></div>
+                  <h3>Experiment configuration</h3>
+                  <p>
+                    This section collects the settings behind the experiment, so readers can inspect
+                    the details in context.
+                  </p>
+                  <dl class="experiment-table">
+                    <div>
+                      <dt>Compute</dt>
+                      <dd>8 GPUs</dd>
+                    </div>
+                    <div>
+                      <dt>Duration</dt>
+                      <dd>3 days</dd>
+                    </div>
+                    <div>
+                      <dt>Evaluation</dt>
+                      <dd>Held-out set</dd>
+                    </div>
+                  </dl>
+                  <p class="arrival-note">↳ 已定位到附录</p>
+                </div>
+              </article>
+              <aside class="lens-panel" aria-label="JevLens 示例侧栏">
+                <div class="lens-brand">
+                  <img src="./icon.svg" width="22" height="22" alt="" />jev lens
+                  <span aria-hidden="true">⌘</span>
+                </div>
+                <div class="lens-mode">
+                  <span id="mode-label">SEE / 看重点</span><span class="tiny-dot"></span>
+                </div>
+                <div id="see-content" class="mode-content">
+                  <h3>A little clarity.</h3>
+                  <p class="panel-note">重要原文，保留上下文。</p>
+                  <div class="result-card">
+                    <div><b>01</b><span>KEY IDEA</span></div>
+                    <p>Finding the important passages should feel effortless.</p>
+                    <span class="card-jump">原文就在左侧 ↖</span>
+                  </div>
+                  <div class="result-card secondary">
+                    <div><b>02</b><span>READING PRINCIPLE</span></div>
+                    <p>Keep the author's original words in view.</p>
+                  </div>
+                </div>
+                <div id="find-content" class="mode-content" hidden>
+                  <h3>Follow your question.</h3>
+                  <p class="panel-note">从问题出发，回到原文。</p>
+                  <div class="query-bubble">训练需要多少 GPU？</div>
+                  <div class="result-card find-result">
+                    <div><b>01</b><span>MATCHED PASSAGE</span></div>
+                    <p>
+                      Training requires <strong>eight GPUs</strong> and takes three days to
+                      complete.
+                    </p>
+                    <span class="card-jump">↖ 已定位相关原文</span>
+                  </div>
+                  <p class="mode-footnote">不是生成一个回答，而是找到依据。</p>
+                </div>
+                <div id="act-content" class="mode-content" hidden>
+                  <h3>Where to next?</h3>
+                  <p class="panel-note">把下一步，交还给你。</p>
+                  <div class="query-bubble">go to Appendix</div>
+                  <div class="action-card">
+                    <span class="eyebrow">PROPOSED DESTINATION</span>
+                    <h4>Appendix</h4>
+                    <p>附录 · 第 30 页</p>
+                    <button id="approve">确认跳转 <span aria-hidden="true">↗</span></button>
+                  </div>
+                  <p id="act-status" class="mode-footnote" role="status">
+                    先确认目标，再执行这一步。
+                  </p>
+                </div>
+                <div class="lens-bottom">
+                  <span id="demo-input">What matters on this page?</span
+                  ><span aria-hidden="true">↑</span>
+                </div>
+              </aside>
+            </div>
+          </div>
+          <div class="showcase-footer">
+            <span id="experience-note" role="status"
+              >01 / 03 &nbsp; 从满屏信息，到值得读的原文。</span
+            ><span class="demo-label">本地示例 · 无 AI 请求</span>
+          </div>
+        </section>
+      </main>
+      <footer class="site-footer">
+        <span>Read with intention. <span class="footer-muted">Built for curious minds.</span></span
+        ><span>原文可追溯 <i>·</i> 操作需确认 <i>·</i> Demo 不上传内容</span>
+      </footer>
+    </div>
+    <dialog id="install-dialog" aria-labelledby="install-title">
+      <button class="dialog-close" id="close-dialog" aria-label="关闭安装指南">×</button>
+      <p class="eyebrow">GET STARTED</p>
+      <h2 id="install-title">把 JevLens 放进浏览器。</h2>
+      <ol>
+        <li>
+          <strong>获取源码并构建</strong>
+          <p>需要 Node.js 22.13+。在项目目录运行：</p>
+          <pre><code>npm install
+npm run build</code></pre>
+          <a href="https://github.com/pyroweiqiu/JevLens/archive/refs/heads/main.zip"
+            >下载源码 ZIP ↗</a
+          >
+        </li>
+        <li>
+          <strong>加载 Chrome 扩展</strong>
+          <p>
+            打开 <code>chrome://extensions</code>，开启开发者模式，选择“加载已解压的扩展程序”，加载
+            <code>output/chrome-mv3</code>。
+          </p>
+        </li>
+        <li>
+          <strong>打开网页，开始探索</strong>
+          <p>
+            刷新网页，点击工具栏 JevLens。Demo 可直接体验；真实 AI 分析可在 API settings 配置 Jev 或
+            OpenRouter。
+          </p>
+        </li>
+      </ol>
+      <a
+        class="readme-link"
+        href="https://github.com/pyroweiqiu/JevLens#readme"
+        target="_blank"
+        rel="noopener noreferrer"
+        >查看完整使用说明 ↗</a
+      >
+    </dialog>
+  </body>
+</html>

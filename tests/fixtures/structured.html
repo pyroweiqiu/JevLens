@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Structured documentation</title>
+    <style>
+      body {
+        font: 18px/1.7 sans-serif;
+        margin: 40px;
+        max-width: 900px;
+      }
+      section,
+      .chapter {
+        min-height: 750px;
+      }
+      nav a {
+        margin: 10px;
+      }
+      h2 {
+        scroll-margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav aria-label="Contents">
+      <a href="#install">Install guide</a
+      ><a href="#api" onclick="document.body.dataset.linkClicked = 'true'">API table</a
+      ><a href="#references">References</a>
+    </nav>
+    <h1>Structured documentation</h1>
+    <section>
+      <h2 id="install">1. Installation</h2>
+      <p>Install the package to get started with this documentation.</p>
+    </section>
+    <section><div id="api">Configuration table with setup options and API examples.</div></section>
+    <section>
+      <h2 id="references">参考文献</h2>
+      <p>Sources and reference materials for the guide.</p>
+    </section>
+    <section>
+      <h2>FAQ</h2>
+      <p>Frequently asked setup questions.</p>
+    </section>
+    <section>
+      <h2>FAQ</h2>
+      <p>Frequently asked deployment questions.</p>
+    </section>
+  </body>
+</html>

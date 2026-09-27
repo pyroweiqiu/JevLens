@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>A field guide to focused reading</title>
+    <style>
+      body {
+        font: 18px/1.8 Georgia;
+        background: #faf9f5;
+        color: #24382e;
+        margin: 0;
+      }
+      nav {
+        padding: 20px;
+        background: #edf0e5;
+      }
+      main {
+        max-width: 720px;
+        margin: 70px auto;
+      }
+      h1 {
+        font-size: 48px;
+        line-height: 1.15;
+      }
+      h2 {
+        margin-top: 70px;
+        font-size: 30px;
+      }
+      p {
+        margin: 26px 0;
+      }
+      a,
+      button {
+        color: #45693c;
+      }
+      button {
+        padding: 12px;
+        background: #e3ecd8;
+        border: 1px solid #a8bd92;
+        border-radius: 5px;
+      }
+      footer {
+        padding: 60px;
+      }
+      code {
+        background: #e9edde;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      Navigation should never be scored <a href="#training">Training</a> ·
+      <a href="#install">Installation guide</a>
+    </nav>
+    <main>
+      <h1>A field guide to focused reading</h1>
+      <p>
+        The web gives us access to more information than we can reasonably read. Finding the
+        important passages should feel effortless.
+      </p>
+      <h2 id="training">Training a useful model</h2>
+      <p id="inline">
+        The model is <strong>trained with human feedback</strong> to identify important information.
+        It achieves <em>92 percent accuracy</em> on the evaluation dataset.
+      </p>
+      <p>
+        Training requires eight GPUs and takes three days to complete. The experiment uses a
+        held-out evaluation set to measure generalization.
+      </p>
+      <p>
+        The objective is to preserve the author's original words while helping readers focus. Each
+        prediction is a typed score with a separate confidence value.
+      </p>
+      <h2 id="install">Installation</h2>
+      <p>
+        Install the package with the command below and start the local development server. The API
+        key must remain on the server and must never be included in extension code.
+      </p>
+      <pre><code>npm install jev-lens
+npm run dev</code></pre>
+      <p>
+        Open the Chrome extension settings and load the unpacked build folder. Refresh an existing
+        page before opening the side panel for the first time.
+      </p>
+      <h2>Results and limitations</h2>
+      <p>
+        The model achieves strong results on articles and technical documentation. Important
+        warnings and instructions are highlighted alongside the main claims.
+      </p>
+      <p>
+        The system cannot read images or canvas-only editors without OCR. Complex PDF layouts may
+        have imperfect reading order, so always verify a passage in its original context.
+      </p>
+      <p>
+        Paragraph mode uses fewer inference units than sentence mode. Actual token usage is measured
+        for every request rather than estimated from page length.
+      </p>
+      <h2>Continue exploring</h2>
+      <p>
+        Use the navigator to find installation instructions or model training details. Cursor
+        proposes the next useful action and waits for explicit approval.
+      </p>
+      <button
+        type="button"
+        id="safe"
+        onclick="
+          this.textContent = 'Guide opened';
+          document.querySelector('#install').scrollIntoView();
+        "
+      >
+        Open installation guide
+      </button>
+      <button type="button" id="danger">Delete account</button>
+      <form>
+        <input type="password" value="secret-password" /><textarea>
+Private draft must never leave this device.</textarea
+        ><button>Send message</button>
+      </form>
+      <div contenteditable="true"><p>Secret editable draft must be excluded.</p></div>
+      <p hidden>Hidden private content must be excluded.</p>
+    </main>
+    <footer>Footer links and tracking notices are not relevant.</footer>
+  </body>
+</html>
